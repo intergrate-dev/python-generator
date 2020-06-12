@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="{{ dao_package }}">
+
+    <sql id="AllColumn">
+        {{ column_ }}
+    </sql>
+
+    <select id="findById" parameterType="java.lang.String" resultType="{{ vo_package }}">
+        select
+            <include refid="AllColumn"/>
+        from
+            {{ table_name }}
+        where
+            {{ id }} = #{ {{entity_id}}}
+
+    </select>
+
+    <select id="list" resultType="{{ vo_package }}">
+        select
+            <include refid="AllColumn"/>
+        from
+            {{ table_name }}
+        <where>
+           {% for column in columns.keys() %}<if test="{{ column }}!=null and  {{ column }}!=''">
+                and {{ columns[column][2] }} = #{ {{ column }}}
+            </if>
+          {% endfor %}
+        </where>
+    </select>
+
+    <delete id="delete">
+        delete from
+            {{ table_name }}
+        where
+            {{ id }} IN
+         <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+         </foreach>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="{{ id }}" keyProperty="{{entity_id}}">
+        insert into
+            {{ table_name }}
+        (
+            {{ insert_column }}
+        ) values
+       (
+             {{ insert_value }}
+        )
+
+    </insert>
+
+    <insert id="batchInsert" useGeneratedKeys="true" keyColumn="{{ id }}" keyProperty="{{entity_id}}">
+        insert into
+            {{ table_name }}
+        (
+            {{ insert_column }}
+        ) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+                {{ batch_insert_value }}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        update
+        {{ table_name }}
+        <set>
+            {% for column in columns.keys() %}<if test=" {{ column }}!=null and {{ column }}!=''">
+              {{ columns[column][2] }}  address = #{ {{ column }}} ,
+            </if>
+            {% endfor %}
+        </set>
+        where
+            {{ id }} = #{ {{entity_id}}}
+    </update>
+
+</mapper>

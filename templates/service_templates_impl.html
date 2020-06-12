@@ -1,0 +1,90 @@
+package {{ package }};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.github.pagehelper.PageHelper;
+
+import {{ base_page }}.base.PageData;
+import {{ dao_package }};
+import {{ entity_package }};
+import {{ service_package }};
+import {{ vo_package }};
+import {{ dto_package }};
+import {{ page_entity }};
+
+import java.util.List;
+
+/**
+ * @author hwr
+ * @version V1.0
+ * @Description 业务类
+ * @date {{ date }}
+ * @since V1.0
+ */
+@Service
+public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
+
+    @Autowired
+    private {{ class_name }}Dao {{ small_class_name }}Dao;
+
+    /**
+	 * @Description: 新增
+	 * @since V1.0
+	 * @param {{ small_class_name }}
+	 */
+	public {{ class_name }}DTO save({{ class_name }}DTO {{ small_class_name }}) {
+        {{ small_class_name }}Dao.insert({{ small_class_name }});
+		return {{ small_class_name }};
+	}
+
+    /**
+	 * @Description: 修改
+	 * @since V1.0
+	 * @param {{ small_class_name }}
+	 */
+	public {{ class_name }}DTO update({{ class_name }}DTO {{ small_class_name }}) {
+        {{ small_class_name }}Dao.update({{ small_class_name }});
+		return {{ small_class_name }};
+	}
+
+    /**
+	 * @Description: 批量删除
+	 * @since V1.0
+	 * @param ids
+	 */
+	public void delete(List<Long> ids) {
+        {{ small_class_name }}Dao.delete(ids);
+	}
+
+    /**
+	 * @Description: 查询列表
+	 * @since V1.0
+	 * @param {{ small_class_name }}
+	 */
+	public List<{{ class_name }}VO> list({{ class_name }}DTO {{ small_class_name }}) {
+        return {{ small_class_name }}Dao.list({{ small_class_name }});
+	}
+
+    /**
+	 * @Description: 分页查询列表
+	 * @since V1.0
+	 * @param {{ small_class_name }}
+	 */
+	public PageData<{{ class_name }}VO> page({{ class_name }}PageDTO {{ small_class_name }}) {
+            PageData<{{ class_name }}VO> pageData = new PageData<>({{ small_class_name }}.getPageNo(), {{ small_class_name }}.getLimit());
+            PageHelper.startPage(pageData.getPageNo(), pageData.getLimit());
+            List<{{ class_name }}VO> list = {{ small_class_name }}Dao.list({{ small_class_name }});
+            pageData.setData(list);
+            return pageData;
+	}
+
+    /**
+	 * @Description: 通过ID查询
+	 * @since V1.0
+	 * @param id
+	 */
+	public {{ class_name }}VO findById(String id) {
+            return {{ small_class_name }}Dao.findById(id);
+	}
+
+}
