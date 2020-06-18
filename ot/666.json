@@ -1,0 +1,8 @@
+{ "accountID": "19766", "accountName": "npsxjba", "exTaskID": "JH124312", "resourceID": "tgcw", "memberCode": "jwrbqpvoa", "memberName": "nlvhewbzas", "tableName": "jtbygl", "dbIP": "tmhsnebdfv", "dbName": "vjuwd", "dbPort": "ihkf", "exTotalCnt": "100", "exFailCnt": "10", "exSuccCnt": "90", "stTime": "2020-06-10 15:15:15", "endTime": "2020-06-10 15:17:00", "exResult": "成功", "cataType": "结构化数据", "isSaveChain": "上链", "isConstnt": "一致" }
+
+
+
+{ "repName": "验证报告", "accountID": "B0003", "pubMember": "公安局", "resourceName": "资源信息", "accName": "交换信息落地结果", "isSaveChain": "已上链", "checkType": "逐条", "checkRes": "逐条", "scriMember": "政务局", "checkDate": "2020-06-20" }
+
+
+{ "cataName": "居民基本信息", "cataType": "结构化数据", "exReq": "每天", "memberName": "公安局", "tableName": "T_a" }

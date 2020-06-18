@@ -2,6 +2,9 @@ import os
 import time
 import tarfile
 import traceback
+import json
+import random
+import math
 from flask import Flask, render_template, send_from_directory, request
 from build import config, discern_type, connectDB
 
@@ -55,10 +58,14 @@ def create_class():
         if entity and len(entity) >= 1:
             print('--- create entity class')
             create_entity(table, package, column, d)
-        VO = request.form.get('VO')
-        if VO and len(VO) >= 1:
-            create_VO(table, package, column, d)
-            print('--- create VO class')
+        Vo = request.form.get('Api')
+        if Vo and len(Vo) >= 1:
+            create_Api(table, package, d, result)
+            print('--- create Api doc')
+        Vo = request.form.get('Vo')
+        if Vo and len(Vo) >= 1:
+            create_Vo(table, package, d, result)
+            print('--- create Vo class')
         DTO = request.form.get('DTO')
         if DTO and len(DTO) >= 1:
             create_DTO(table, package, column, d)
@@ -73,14 +80,17 @@ def create_class():
         if service and len(service) >= 1:
             print('--- create service class')
             create_service(table, package, d)
-            create_service_impl(table, package, d)
+            create_service_impl(table, package, d, result)
         controller = request.form.get('controller')
+        ds = request.form.get('Do')
+        if ds and len(ds) >= 1:
+            print('--- create do class')
+            create_do(table, package, d, result)
         if controller and len(controller) >= 1:
             print('--- create controller class')
             create_controller(table, package, d)
         file_name = make_targz()
     return render_template('create_class.html', msg=msg, file_name=file_name, **table_list)
-
 
 # 创建entity
 def create_entity(class_name, package, columns, date):
@@ -96,23 +106,6 @@ def create_entity(class_name, package, columns, date):
          'date': date}
     s = render_template('entity_templates.html', **c)
     create_java_file(class_name, package + '.entity', s)
-
-
-# 创建VO
-def create_VO(class_name, package, columns, date):
-    propertys = ''
-    if columns:
-        for key in columns.keys():
-            propertys += '/** \n *' + columns[key][1] + ' \n */ \n'
-            propertys += 'private %s %s;' % (columns[key][0], key) + '\n\n'
-    c = {'package': package + '.vo',
-         'entity_package': package + '.vo.' + class_name,
-         'class_name': class_name + 'VO',
-         'propertys': propertys,
-         'date': date}
-    s = render_template('entity_templates.html', **c)
-    create_java_file(class_name + 'VO', package + '.vo', s)
-
 
 # 创建entity
 def create_DTO(class_name, package, columns, date):
@@ -152,7 +145,7 @@ def create_dao(class_name, package, date):
          'small_class_name': small_str(class_name),
          'entity_package': package + '.entity.' + class_name,
          'date': date,
-         'vo_package': package + '.vo.' + class_name + 'VO',
+         'vo_package': package + '.vo.' + class_name + 'Vo',
          'dto_package': package + '.dto.' + class_name + 'DTO'
          }
     s = render_template('dao_templates.html', **c)
@@ -164,21 +157,26 @@ def create_xml(class_name, table_name, package, result):
     insert_column = ''
     for index, item in enumerate(result[1]):
         if index == 0:
-            all_column += item + '\n'
+            insert_column += '\n            ' + item + ',\n'
+            all_column += '\n            ' + item + ',\n'
         elif index == 1:
-            insert_column += item + '\n'
-            all_column += '        ,' + item + '\n'
+            insert_column += '            ' + item + ',\n'
+            all_column += '            ' + item + ',\n'
         else:
-            insert_column += '        ,' + item + '\n'
-            all_column += '        ,' + item + '\n'
+            insert_column += '            ' + item + ',\n'
+            all_column += '            ' + item + ',\n'
 
+    insert_column = insert_column[:-2] + '\n'
+    all_column = all_column[:-2] + '\n'
     entity_id = result[1][0]
     result[0].pop(change_str(entity_id))
 
-    insert = insert_value(result[0])
+    # insert = insert_value(result[0])
+    insert = insert_value(result)
     c = {'package': package + '.dao',
-         'vo_package': package + '.vo.' + class_name + 'VO',
-         'dao_package': package + '.dao.' + class_name + 'Dao',
+         'name_space': 'portal.' + class_name,
+         'vo_entity': package + '.vo.' + class_name + 'Vo',
+         'do_entity': package + '.dos.' + class_name + 'Do',
          'class_name': class_name,
          'columns': result[0],
          'id': result[1][0],
@@ -196,52 +194,111 @@ def create_xml(class_name, table_name, package, result):
 def insert_value(columns):
     insert_value = ''
     batch_insert_value = ''
-    for index, item in enumerate(columns.keys()):
+    # for index, item in enumerate(columns.keys()):
+    for index, item in enumerate(columns[1]):
         if index == 0:
-            insert_value += '#{' + item + '}\n'
-            batch_insert_value += '#{item.' + item + '}\n'
+            insert_value += '\n            #{' + item + '},\n'
+            batch_insert_value += '\n            #{item.' + item + '},\n'
         else:
-            insert_value += ',#{' + item + '}\n'
-            batch_insert_value += ',#{item.' + item + '}\n'
-    insert = (insert_value, batch_insert_value)
+            insert_value += '            #{' + item + '},\n'
+            batch_insert_value += '            #{item.' + item + '},\n'
+    insert = (insert_value[:-2] + '\n', batch_insert_value[:-2] + '\n')
     return insert
 
 
 # 创建Service
 def create_service(class_name, package, date):
-    c = {'package': package + '.service',
+    c = {'service_package': package + '.service',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
          'entity_package': package + '.entity.' + class_name,
-         'dao_package': package + '.dao.' + class_name + 'Dao',
+         'dao_package': package + '.dos.' + class_name + 'Do',
          'date': date,
-         'vo_package': package + '.vo.' + class_name + 'VO',
-         'dto_package': package + '.dto.' + class_name + 'DTO',
-         'page_dto': class_name + 'PageDTO',
-         'page_entity': package + '.dto.' + class_name + 'PageDTO',
-         'base_page': base_page
+         'vo_entity': package + '.vo.' + class_name + 'Vo'
          }
-    s = render_template('service_templates.html', **c)
+    # s = render_template('service_templates.html', **c)
+    s = render_template('service.txt', **c)
     create_java_file(class_name + 'Service', package + '.service', s)
 
 
 # 创建Service
-def create_service_impl(class_name, package, date):
+def create_service_impl(class_name, package, date, result):
     c = {'package': package + '.service.impl',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
-         'entity_package': package + '.entity.' + class_name,
-         'dao_package': package + '.dao.' + class_name + 'Dao',
-         'service_package': package + '.service.' + class_name + 'Service',
          'date': date,
-         'vo_package': package + '.vo.' + class_name + 'VO',
-         'dto_package': package + '.dto.' + class_name + 'DTO',
-         'page_entity': package + '.dto.' + class_name + 'PageDTO',
-         'base_page': base_page
+         'id': result[1][0],
+         'vo_entity': package + '.vo.' + class_name + 'Vo',
+         'do_entity': package + '.dos.' + class_name + 'Do',
+         'service_entity': package + '.service.' + class_name + 'Service'
          }
-    s = render_template('service_templates_impl.html', **c)
+    # s = render_template('service_templates_impl.html', **c)
+    s = render_template('service_impl.txt', **c)
     create_java_file(class_name + 'ServiceImpl', package + '.service.impl', s)
 
+# 创建Do
+def create_do(class_name, package, date, result):
+    c = {'package': package + '.dos',
+         'class_name': class_name,
+         'small_class_name': small_str(class_name),
+         'entity_package': package + '.entity.' + class_name,
+         'do_package': package + '.dos.' + class_name + 'Do',
+         'service_package': package + '.service.' + class_name + 'Service',
+         'date': date,
+         'id': result[1][0],
+         'columns': result[0],
+         'vo_entity': package + '.vo.' + class_name + 'Vo'
+         }
+    # s = render_template('do_templates_impl.html', **c)
+    s = render_template('do.txt', **c)
+    print("create dos ...")
+    create_java_file(class_name + 'Do', package + '.dos', s)
+
+# 创建Api
+def create_Api(class_name, package, date, result):
+    host = "localhost"
+    # raw_json = {"txnCommCom":{"txnIttChnlId":"1","txnIttChlCgyCode":"1"},"txnBodyCom":{"f1":"123","f2":"wrt"}}
+    small_class = small_str(class_name)
+    json_body = {small_class: entity_json(result, True)}
+    raw_json = {"txnCommCom":{"txnIttChnlId":"1","txnIttChlCgyCode":"1"},"txnBodyCom":json_body}
+    raw_str = json_to_str(raw_json)
+    c = {'package': package + '.Api',
+         'class_name': class_name,
+         'small_class_name': small_class,
+         'entity_package': package + '.entity.' + class_name,
+         'vo_package': package + '.vo.' + class_name + 'Vo',
+         'service_package': package + '.service.' + class_name + 'Service',
+         'date': date,
+         'host': host,
+         'host_array': list_to_str(host.split('.')),
+         'port': '8080',
+         'body_raw': raw_str,
+         'id': result[1][0],
+         'columns': result[0]
+         }
+    # s = render_template('do_templates_impl.html', **c)
+    service_registry = render_template('service_registry.txt', **c)
+    api_postman = render_template('rest_api_postman.txt', **c)
+    print("create service_registry, api of postman...")
+    create_java_file('service_registry', package + '.Api', service_registry, '.txt')
+    create_java_file('Api-doc-test.postman_clollection', package + '.Api', api_postman, '.json')
+
+# 创建Vo
+def create_Vo(class_name, package, date, result):
+    c = {'package': package + '.vo',
+         'class_name': class_name,
+         'small_class_name': small_str(class_name),
+         'entity_package': package + '.entity.' + class_name,
+         'vo_package': package + '.vo.' + class_name + 'Vo',
+         'service_package': package + '.service.' + class_name + 'Service',
+         'date': date,
+         'id': result[1][0],
+         'columns': result[0]
+         }
+    # s = render_template('do_templates_impl.html', **c)
+    s = render_template('vo.txt', **c)
+    print("create dos ...")
+    create_java_file(class_name + 'Vo', package + '.vo', s)
 
 # 创建controller
 def create_controller(class_name, package, date):
@@ -253,7 +310,7 @@ def create_controller(class_name, package, date):
          'entity_package': package + '.entity.' + class_name,
          'service_package': package + '.service.' + class_name + 'Service',
          'date': date,
-         'vo_package': package + '.vo.' + class_name + 'VO',
+         'vo_package': package + '.vo.' + class_name + 'Vo',
          'dto_package': package + '.dto.' + class_name + 'DTO',
          'page_entity': package + '.dto.' + class_name + 'PageDTO',
          'base_page': base_page}
@@ -324,6 +381,31 @@ def change_str(column):
     hump_string = ''.join(others_capital)
     return hump_string
 
+def list_to_str(list):
+    a = '['
+    for w in list:
+        a += '"' + w + '", '
+    return a[:-2] + ']'
+
+def json_to_str(d_json):
+    raw_str = json.dumps(d_json)
+    return '"' + raw_str.replace('"', '\\"') + '"'
+
+def entity_json(result, is_create):
+    e_json = {}
+    y = 'zyxwvutsrqponmlkjihgfedcba'
+    if(is_create):
+        for index, item in enumerate(result[1]):
+            if index == 0:
+                r = math.floor(1e6 * random.random())
+                e_json[item] = '%d' %r
+            else:
+                e_json[item] = ''.join(random.sample(y, random.randint(4, 10)))
+    else:
+        for index, item in enumerate(result[1]):
+            e_json[item] = ''.join(random.sample(y, random.randint(4, 10)))
+    print(e_json)
+    return e_json
 
 if __name__ == '__main__':
     app.run()

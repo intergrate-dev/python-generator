@@ -1,62 +1,6 @@
-package {{ package }};
-
-import {{ entity_package }};
-import {{ vo_package }};
-import {{ dto_package }};
-import {{ page_entity }};
-import {{ base_page }}.base.PageData;
-
-import java.util.List;
-
-/**
- * @author hwr
- * @version V1.0
- * @Description 业务类
- * @date {{ date }}
- * @since V1.0
- */
-public interface {{ class_name }}Service {
-
-    /**
-	 * @Description: 新增
-	 * @since V1.0
-	 * @param {{ small_class_name }}
-	 */
-     {{ class_name }}DTO save({{ class_name }}DTO {{ small_class_name }});
-
-    /**
-	 * @Description: 修改
-	 * @since V1.0
-	 * @param {{ small_class_name }}
-	 */
-	 {{ class_name }}DTO update({{ class_name }}DTO {{ small_class_name }});
-
-    /**
-	 * @Description: 批量删除
-	 * @since V1.0
-	 * @param id
-	 */
-	 void delete(List<Long> id);
-
-    /**
-	 * @Description: 查询列表
-	 * @since V1.0
-	 * @param {{ small_class_name }}
-	 */
-	 List<{{ class_name }}VO> list({{ class_name }}DTO {{ small_class_name }});
-
-    /**
-	 * @Description: 分页查询列表
-	 * @since V1.0
-	 * @param {{ small_class_name }}
-	 */
-	 PageData<{{ class_name }}VO> page({{ class_name }}PageDTO {{ small_class_name }});
-
-    /**
-	 * @Description: 通过ID查询
-	 * @since V1.0
-	 * @param id
-	 */
-	 {{ class_name }}VO findById(String id);
-
-}
+package {{ package }}; import {{ entity_package }}; import {{ vo_package }}; import {{ dto_package }}; import {{ page_entity }}; import {{ base_page }}.base.PageData; import java.util.List; /** * @author hwr * @version V1.0 * @Description 业务类 * @date
+{{ date }} * @since V1.0 */ public interface {{ class_name }}Service { /** * @Description: 新增 * @since V1.0 * @param {{ small_class_name }} */ {{ class_name }}DTO save({{ class_name }}DTO {{ small_class_name }}); /** * @Description: 修改 * @since V1.0 *
+@param {{ small_class_name }} */ {{ class_name }}DTO update({{ class_name }}DTO {{ small_class_name }}); /** * @Description: 批量删除 * @since V1.0 * @param id */ void delete(List
+<Long> id); /** * @Description: 查询列表 * @since V1.0 * @param {{ small_class_name }} */ List
+    <{{ class_name }}Vo> list({{ class_name }}DTO {{ small_class_name }}); /** * @Description: 分页查询列表 * @since V1.0 * @param {{ small_class_name }} */ PageData
+        <{{ class_name }}Vo> page({{ class_name }}PageDTO {{ small_class_name }}); /** * @Description: 通过ID查询 * @since V1.0 * @param id */ {{ class_name }}Vo findById(String id); }

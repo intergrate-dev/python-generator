@@ -1,0 +1,301 @@
+{
+    "projectInfo": {
+        "projectName": "Api-portal-bctest",
+        "projectType": 0,
+        "projectUpdateTime": "2020-05-12 17:37:28",
+        "projectVersion": "1.0",
+        "projectDesc": "",
+        "mockApiSetting": "{\"requestTypeCheck\":1,\"requestParamCheck\":0,\"mockAutoRefresh\":1,\"requestHeaderCheck\":0}",
+        "duplicateCheckSetting": "{\"apiNameDuplicateCheck\":0,\"apiURIDuplicateCheck\":0,\"statusCodeDuplicateCheck\":0,\"paramDuplicateCheck\":0}",
+        "synchronizeSetting": null
+    },
+    "apiGroupList": [{
+        "groupID": 951613,
+        "groupName": "group_bcTest",
+        "parentGroupID": 0,
+        "groupDepth": 1,
+        "groupOrder": "{}",
+        "apiList": [{
+            "baseInfo": {
+                "apiName": "exTask list",
+                "apiURI": "\/bdc\/bdc00027",
+                "apiProtocol": 0,
+                "apiSuccessMock": "{\"C-Response-Desc\":\"success\",\"C-API-Status\":\"00\",\"C-Response-Body\":\"{\\\"txnCommCom\\\":{\\\"tCurrTotalPage\\\":\\\"1\\\",\\\"tCurrTotalRec\\\":\\\"10\\\",\\\"totalPage\\\":\\\"1\\\",\\\"totalRec\\\":\\\"3\\\"},\\\"txnBodyCom\\\":[{\\\"belongParticipantCode\\\":\\\"be7cb6e021c64256aee03a9203eaf9d7\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87969450778\\\",\\\"memberName\\\":\\\"\u5317\u4eac\u5e02\u516c\u5b89\u5c40\\\",\\\"resourceID\\\":\\\"0000Z\/00007\\\",\\\"resourceName\\\":\\\"\u6237\u7c4d\u4eba\u53e3\u767b\u8bb0\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-27 14:37:30\\\"},{\\\"belongParticipantCode\\\":\\\"a3a2277cc0ad4585af53d81d67e5b536\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87904908618\\\",\\\"memberName\\\":\\\"\u5317\u4eac\u5e02\u6b8b\u8054\\\",\\\"resourceID\\\":\\\"0000Z\/00003\\\",\\\"resourceName\\\":\\\"\u6b8b\u75be\u4eba\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-26 20:41:48\\\"},{\\\"belongParticipantCode\\\":\\\"45096be725444cce97adb007450eff40\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87904526112\\\",\\\"memberName\\\":\\\"\u5317\u4eac\u5e02\u4f4f\u623f\u548c\u57ce\u4e61\u5efa\u8bbe\u59d4\u5458\u4f1a\\\",\\\"resourceID\\\":\\\"0000Z\/00002\\\",\\\"resourceName\\\":\\\"\u4fdd\u969c\u623f\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-26 20:35:26\\\"}]}\",\"C-Response-Code\":\"000000000000\"}",
+                "apiFailureMock": "",
+                "apiRequestType": 0,
+                "apiStatus": 0,
+                "starred": 0,
+                "apiNoteType": 1,
+                "apiNoteRaw": "",
+                "apiNote": "",
+                "apiRequestParamType": 2,
+                "apiRequestRaw": "",
+                "apiRequestBinary": null,
+                "apiFailureStatusCode": "200",
+                "apiSuccessStatusCode": "200",
+                "apiFailureContentType": "text\/html; charset=UTF-8",
+                "apiSuccessContentType": "text\/html; charset=UTF-8",
+                "apiRequestParamJsonType": 0,
+                "advancedSetting": null,
+                "beforeInject": null,
+                "afterInject": null,
+                "createTime": "2020-05-09 12:49:03",
+                "apiUpdateTime": "2020-05-09 13:14:53",
+                "apiTag": "1.0"
+            },
+            "responseHeader": [
+
+            ],
+            "headerInfo": [{
+                "headerName": "tsStsTraceId",
+                "headerValue": "11056897909",
+                "paramNotNull": "0",
+                "default": 0
+            }],
+            "authInfo": {
+                "status": "0"
+            },
+            "requestInfo": [{
+                    "paramNotNull": "0",
+                    "paramType": "13",
+                    "paramName": "",
+                    "paramKey": "txnCommCom",
+                    "paramValue": "",
+                    "paramLimit": "",
+                    "paramNote": "",
+                    "paramValueList": [
+
+                    ],
+                    "default": 0,
+                    "childList": [{
+                            "paramNotNull": "0",
+                            "paramType": "0",
+                            "paramName": "\u6bcf\u9875\u8bb0\u5f55\u6761\u6570",
+                            "paramKey": "tRecInPage",
+                            "paramValue": "10",
+                            "paramLimit": "",
+                            "paramNote": "",
+                            "paramValueList": [
+
+                            ],
+                            "default": 0,
+                            "childList": [
+
+                            ]
+                        },
+                        {
+                            "paramNotNull": "0",
+                            "paramType": "0",
+                            "paramName": "\u9875\u7801",
+                            "paramKey": "tPageJump",
+                            "paramValue": "1",
+                            "paramLimit": "",
+                            "paramNote": "",
+                            "paramValueList": [
+
+                            ],
+                            "default": 0,
+                            "childList": [
+
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "paramNotNull": "0",
+                    "paramType": "13",
+                    "paramName": "",
+                    "paramKey": "txnBodyCom",
+                    "paramValue": "",
+                    "paramLimit": "",
+                    "paramNote": "",
+                    "paramValueList": [
+
+                    ],
+                    "default": 0,
+                    "childList": [
+
+                    ]
+                }
+            ],
+            "urlParam": [
+
+            ],
+            "restfulParam": [
+
+            ],
+            "resultInfo": [{
+                    "paramNotNull": "0",
+                    "paramName": "\u54cd\u5e94\u63cf\u8ff0",
+                    "paramKey": "C-Response-Desc",
+                    "type": "0",
+                    "paramType": "0",
+                    "paramValueList": [{
+                        "value": "",
+                        "paramType": "0",
+                        "valueDescription": ""
+                    }],
+                    "paramValue": "success"
+                },
+                {
+                    "paramNotNull": "0",
+                    "paramName": "\u54cd\u5e94\u72b6\u6001\u7801",
+                    "paramKey": "C-API-Status",
+                    "type": "0",
+                    "paramType": "0",
+                    "paramValueList": [{
+                        "value": "",
+                        "paramType": "0",
+                        "valueDescription": ""
+                    }],
+                    "paramValue": "00"
+                },
+                {
+                    "paramNotNull": "0",
+                    "paramName": "\u8fd4\u56de\u7684\u7ed3\u679c\u6570\u636e",
+                    "paramKey": "C-Response-Body",
+                    "type": "0",
+                    "paramType": "0",
+                    "paramValueList": [{
+                        "value": "",
+                        "paramType": "0",
+                        "valueDescription": ""
+                    }],
+                    "paramValue": "{\"txnCommCom\":{\"tCurrTotalPage\":\"1\",\"tCurrTotalRec\":\"10\",\"totalPage\":\"1\",\"totalRec\":\"3\"},\"txnBodyCom\":[{\"belongParticipantCode\":\"be7cb6e021c64256aee03a9203eaf9d7\",\"catalogType\":\"\u7ed3\u6784\u5316\u6570\u636e\",\"id\":\"TK_87969450778\",\"memberName\":\"\u5317\u4eac\u5e02\u516c\u5b89\u5c40\",\"resourceID\":\"0000Z\/00007\",\"resourceName\":\"\u6237\u7c4d\u4eba\u53e3\u767b\u8bb0\u4fe1\u606f\",\"status\":\"\u6b63\u5e38\",\"updateCycleCode\":\"\u5b9e\u65f6\",\"updateTime\":\"2020-04-27 14:37:30\"},{\"belongParticipantCode\":\"a3a2277cc0ad4585af53d81d67e5b536\",\"catalogType\":\"\u7ed3\u6784\u5316\u6570\u636e\",\"id\":\"TK_87904908618\",\"memberName\":\"\u5317\u4eac\u5e02\u6b8b\u8054\",\"resourceID\":\"0000Z\/00003\",\"resourceName\":\"\u6b8b\u75be\u4eba\u4fe1\u606f\",\"status\":\"\u6b63\u5e38\",\"updateCycleCode\":\"\u5b9e\u65f6\",\"updateTime\":\"2020-04-26 20:41:48\"},{\"belongParticipantCode\":\"45096be725444cce97adb007450eff40\",\"catalogType\":\"\u7ed3\u6784\u5316\u6570\u636e\",\"id\":\"TK_87904526112\",\"memberName\":\"\u5317\u4eac\u5e02\u4f4f\u623f\u548c\u57ce\u4e61\u5efa\u8bbe\u59d4\u5458\u4f1a\",\"resourceID\":\"0000Z\/00002\",\"resourceName\":\"\u4fdd\u969c\u623f\u4fe1\u606f\",\"status\":\"\u6b63\u5e38\",\"updateCycleCode\":\"\u5b9e\u65f6\",\"updateTime\":\"2020-04-26 20:35:26\"}]}"
+                },
+                {
+                    "paramNotNull": "0",
+                    "paramName": "\u54cd\u5e94\u7f16\u7801",
+                    "paramKey": "C-Response-Code",
+                    "type": "0",
+                    "paramType": "0",
+                    "paramValueList": [{
+                        "value": "",
+                        "paramType": "0",
+                        "valueDescription": ""
+                    }],
+                    "paramValue": "000000000000"
+                }
+            ],
+            "resultParamJsonType": 0,
+            "resultParamType": 0,
+            "structureID": "[]",
+            "databaseFieldID": "[]",
+            "globalStructureID": "[]",
+            "fileID": null,
+            "tagID": [
+                135234
+            ],
+            "groupName": "group_bcTest",
+            "apiType": "http",
+            "testCastList": [
+
+            ],
+            "dataStructureList": [
+
+            ],
+            "globalDataStructureList": [
+
+            ],
+            "mockExpectationList": [{
+                    "expectationID": 1208213,
+                    "expectationName": "\u65e0\u6761\u4ef6\u67e5\u8be2-header\u6dfb\u52a0\uff1ause-data=mock",
+                    "triggerCondition": "{\"headerParam\":[{\"paramKey\":\"use-data\",\"paramValue\":\"mock\"}],\"bodyParam\":[{\"paramKey\":\"txnCommCom\",\"paramValue\":\"\",\"matchRule\":\"1\",\"paramType\":\"13\",\"isLoop\":\"0\",\"childList\":[{\"paramKey\":\"tRecInPage\",\"paramValue\":\"\\\"\\\"\",\"paramType\":\"0\",\"matchRule\":\"2\",\"isLoop\":\"0\"},{\"paramKey\":\"tPageJump\",\"paramValue\":\"\\\"\\\"\",\"paramType\":\"0\",\"matchRule\":\"2\",\"isLoop\":\"0\"}]}],\"urlParam\":[],\"bodyParamJsonType\":\"0\",\"bodyParamType\":\"1\",\"restParam\":[]}",
+                    "responseHttpCode": "200",
+                    "responseDelay": "0.00",
+                    "responseHeader": "[]",
+                    "responseBodySettingType": 1,
+                    "mockConfig": "{}",
+                    "mockRule": "{\n    \"C-Response-Desc\": \"success\",\n    \"C-API-Status\": \"00\",\n    \"C-Response-Body\": \"{\\\"txnCommCom\\\":{\\\"tCurrTotalPage\\\":\\\"1\\\",\\\"tCurrTotalRec\\\":\\\"10\\\",\\\"totalPage\\\":\\\"1\\\",\\\"totalRec\\\":\\\"3\\\"},\\\"txnBodyCom\\\":[{\\\"belongParticipantCode\\\":\\\"m-001\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87969450778\\\",\\\"memberName\\\":\\\"\u516c\u5b89\u5c40\\\",\\\"resourceID\\\":\\\"0000Z\/00007\\\",\\\"resourceName\\\":\\\"\u6237\u7c4d\u4eba\u53e3\u767b\u8bb0\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-27 14:37:30\\\"},{\\\"belongParticipantCode\\\":\\\"m-002\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87904908618\\\",\\\"memberName\\\":\\\"\u6b8b\u8054\\\",\\\"resourceID\\\":\\\"0000Z\/00003\\\",\\\"resourceName\\\":\\\"\u6b8b\u75be\u4eba\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-26 20:41:48\\\"},{\\\"belongParticipantCode\\\":\\\"m-003\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87904526112\\\",\\\"memberName\\\":\\\"\u57ce\u5efa\u5c40\\\",\\\"resourceID\\\":\\\"0000Z\/00002\\\",\\\"resourceName\\\":\\\"\u4fdd\u969c\u623f\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-26 20:35:26\\\"}]}\",\n    \"C-Response-Code\": \"000000000000\"\n}",
+                    "mockResult": "{\n    \"C-Response-Desc\": \"success\",\n    \"C-API-Status\": \"00\",\n    \"C-Response-Body\": \"{\\\"txnCommCom\\\":{\\\"tCurrTotalPage\\\":\\\"1\\\",\\\"tCurrTotalRec\\\":\\\"10\\\",\\\"totalPage\\\":\\\"1\\\",\\\"totalRec\\\":\\\"3\\\"},\\\"txnBodyCom\\\":[{\\\"belongParticipantCode\\\":\\\"m-001\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87969450778\\\",\\\"memberName\\\":\\\"\u516c\u5b89\u5c40\\\",\\\"resourceID\\\":\\\"0000Z\/00007\\\",\\\"resourceName\\\":\\\"\u6237\u7c4d\u4eba\u53e3\u767b\u8bb0\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-27 14:37:30\\\"},{\\\"belongParticipantCode\\\":\\\"m-002\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87904908618\\\",\\\"memberName\\\":\\\"\u6b8b\u8054\\\",\\\"resourceID\\\":\\\"0000Z\/00003\\\",\\\"resourceName\\\":\\\"\u6b8b\u75be\u4eba\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-26 20:41:48\\\"},{\\\"belongParticipantCode\\\":\\\"m-003\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87904526112\\\",\\\"memberName\\\":\\\"\u57ce\u5efa\u5c40\\\",\\\"resourceID\\\":\\\"0000Z\/00002\\\",\\\"resourceName\\\":\\\"\u4fdd\u969c\u623f\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-26 20:35:26\\\"}]}\",\n    \"C-Response-Code\": \"000000000000\"\n}",
+                    "updateTime": "2020-05-12 17:14:12"
+                },
+                {
+                    "expectationID": 1208475,
+                    "expectationName": "\u6761\u4ef6\u67e5\u8be2-header\u6dfb\u52a0\uff1ause-data=mock",
+                    "triggerCondition": "{\"headerParam\":[{\"paramKey\":\"use-data\",\"paramValue\":\"mock\"}],\"bodyParam\":[{\"paramKey\":\"txnCommCom\",\"paramValue\":\"\",\"paramType\":\"13\",\"matchRule\":\"1\",\"isLoop\":\"0\",\"childList\":[{\"paramKey\":\"tRecInPage\",\"paramValue\":\"\\\"\\\"\",\"paramType\":\"0\",\"matchRule\":\"2\",\"isLoop\":\"0\"},{\"paramKey\":\"tPageJump\",\"paramValue\":\"\\\"\\\"\",\"paramType\":\"0\",\"matchRule\":\"2\",\"isLoop\":\"0\"}]},{\"paramKey\":\"txnBodyCom\",\"paramValue\":\"\",\"paramType\":\"13\",\"matchRule\":\"1\",\"isLoop\":\"0\",\"childList\":[{\"paramKey\":\"memberName\",\"paramValue\":\"\\\"\\\"\",\"paramType\":\"0\",\"matchRule\":\"2\",\"isLoop\":\"0\"}]}],\"urlParam\":[],\"bodyParamJsonType\":\"0\",\"bodyParamType\":\"1\",\"restParam\":[]}",
+                    "responseHttpCode": "200",
+                    "responseDelay": "0.00",
+                    "responseHeader": "[]",
+                    "responseBodySettingType": 1,
+                    "mockConfig": "{}",
+                    "mockRule": "{\n    \"C-Response-Desc\": \"success\",\n    \"C-API-Status\": \"00\",\n    \"C-Response-Body\": \"{\\\"txnCommCom\\\":{\\\"tCurrTotalPage\\\":\\\"1\\\",\\\"tCurrTotalRec\\\":\\\"10\\\",\\\"totalPage\\\":\\\"1\\\",\\\"totalRec\\\":\\\"1\\\"},\\\"txnBodyCom\\\":[{\\\"belongParticipantCode\\\":\\\"m-001\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87969450778\\\",\\\"memberName\\\":\\\"\u516c\u5b89\u5c40\\\",\\\"resourceID\\\":\\\"0000Z\/00007\\\",\\\"resourceName\\\":\\\"\u6237\u7c4d\u4eba\u53e3\u767b\u8bb0\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-27 14:37:30\\\"}]}\",\n    \"C-Response-Code\": \"000000000000\"\n}",
+                    "mockResult": "{\n    \"C-Response-Desc\": \"success\",\n    \"C-API-Status\": \"00\",\n    \"C-Response-Body\": \"{\\\"txnCommCom\\\":{\\\"tCurrTotalPage\\\":\\\"1\\\",\\\"tCurrTotalRec\\\":\\\"10\\\",\\\"totalPage\\\":\\\"1\\\",\\\"totalRec\\\":\\\"1\\\"},\\\"txnBodyCom\\\":[{\\\"belongParticipantCode\\\":\\\"m-001\\\",\\\"catalogType\\\":\\\"\u7ed3\u6784\u5316\u6570\u636e\\\",\\\"id\\\":\\\"TK_87969450778\\\",\\\"memberName\\\":\\\"\u516c\u5b89\u5c40\\\",\\\"resourceID\\\":\\\"0000Z\/00007\\\",\\\"resourceName\\\":\\\"\u6237\u7c4d\u4eba\u53e3\u767b\u8bb0\u4fe1\u606f\\\",\\\"status\\\":\\\"\u6b63\u5e38\\\",\\\"updateCycleCode\\\":\\\"\u5b9e\u65f6\\\",\\\"updateTime\\\":\\\"2020-04-27 14:37:30\\\"}]}\",\n    \"C-Response-Code\": \"000000000000\"\n}",
+                    "updateTime": "2020-05-12 17:00:48"
+                }
+            ]
+        }]
+    }],
+    "statusCodeGroupList": [{
+        "groupID": 199906,
+        "groupName": "group_bcTest",
+        "parentGroupID": 0,
+        "groupDepth": 1,
+        "groupOrder": "{}",
+        "statusCodeList": [
+
+        ]
+    }],
+    "pageGroupList": [{
+        "groupID": 174280,
+        "groupName": "group_bcTest",
+        "parentGroupID": 0,
+        "groupDepth": 1,
+        "groupOrder": "{}",
+        "pageList": [
+
+        ]
+    }],
+    "env": [{
+            "envID": 265558,
+            "envName": "mock-\u95e8\u6237\u7f51\u7ad9-bctest",
+            "envAuth": "{\"status\":\"0\"}",
+            "envDesc": "mock portal-bctest",
+            "frontURI": "https:\/\/mockapi.eolinker.com\/cJkwKAna63abdcaa476b0937a43377582ff4c6b044d70bf",
+            "envHeader": "[{\"headerName\":\"C-Tenancy-Id\",\"headerValue\":\"200000000000\"},{\"headerName\":\"Content-Type\",\"headerValue\":\"application\/json\"},{\"headerName\":\"use-data\",\"headerValue\":\"mock\"}]",
+            "globalVariable": "[]",
+            "additionalVariable": "[]",
+            "urlParam": "[]",
+            "requestParamType": 0,
+            "beforeInject": null,
+            "afterInject": null
+        },
+        {
+            "envID": 265518,
+            "envName": "\u95e8\u6237\u7f51\u7ad9-test",
+            "envAuth": "{\"status\":\"0\"}",
+            "envDesc": "portal-test",
+            "frontURI": "http:\/\/103.126.126.119:8026",
+            "envHeader": "[{\"headerName\":\"C-Tenancy-Id\",\"headerValue\":\"000000000000\"},{\"headerName\":\"Content-Type\",\"headerValue\":\"application\/json\"}]",
+            "globalVariable": "[]",
+            "additionalVariable": "[]",
+            "urlParam": "[]",
+            "requestParamType": 0,
+            "beforeInject": null,
+            "afterInject": null
+        },
+        {
+            "envID": 265514,
+            "envName": "\u95e8\u6237\u7f51\u7ad9-bctest",
+            "envAuth": "{\"status\":\"0\"}",
+            "envDesc": "portal-bctest",
+            "frontURI": "http:\/\/103.126.126.119:8026",
+            "envHeader": "[{\"headerName\":\"C-Tenancy-Id\",\"headerValue\":\"200000000000\"},{\"headerName\":\"Content-Type\",\"headerValue\":\"application\/json\"}]",
+            "globalVariable": "[]",
+            "additionalVariable": "[]",
+            "urlParam": "[]",
+            "requestParamType": 0,
+            "beforeInject": null,
+            "afterInject": null
+        }
+    ],
+    "commonFunctionList": [
+
+    ],
+    "dataStructureList": [
+
+    ],
+    "apiGroupOrder": "{}",
+    "statusCodeGroupOrder": "{}",
+    "pageGroupOrder": "{}"
+}

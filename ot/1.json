@@ -1,0 +1,413 @@
+{
+    "projectInfo": {
+        "projectName": "Api-portal-bctest",
+        "projectType": 0,
+        "projectUpdateTime": "2020-05-14 15:51:45",
+        "projectVersion": "1.0",
+        "projectDesc": "default",
+        "mockApiSetting": "{"
+        apiNameDuplicateCheck ":0,"
+        apiURIDuplicateCheck ":0,"
+        statusCodeDuplicateCheck ":0,"
+        paramDuplicateCheck ":0}",
+        "duplicateCheckSetting": "{"
+        requestTypeCheck ":1,"
+        requestParamCheck ":0,"
+        mockAutoRefresh ":1,"
+        requestHeaderCheck ":0,"
+        paramDuplicateCheck ":0}",
+        "synchronizeSetting": ""
+    },
+    "apiGroupList": [{
+            "groupID": 960053,
+            "groupName": "交换任务",
+            "parentGroupID": 0,
+            "groupOrder": null,
+            "groupPath": "960053",
+            "groupDepth": 1,
+            "apiList": [{
+                "baseInfo": {
+                    "apiName": "exTask list",
+                    "apiURI": "/bdc/bdc00027",
+                    "apiProtocol": 0,
+                    "apiSuccessMock": "{"
+                    C - Response - Desc ":"
+                    success ","
+                    C - API - Status ":"
+                    00 ","
+                    C - Response - Body ":" {\
+                        "txnCommCom\":{\"tCurrTotalPage\":\"1\",\"tCurrTotalRec\":\"10\",\"totalPage\":\"1\",\"totalRec\":\"3\"},\"txnBodyCom\":[{\"belongParticipantCode\":\"be7cb6e021c64256aee03a9203eaf9d7\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87969450778\",\"memberName\":\"北京市公安局\",\"resourceID\":\"0000Z/00007\",\"resourceName\":\"户籍人口登记信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-27 14:37:30\"},{\"belongParticipantCode\":\"a3a2277cc0ad4585af53d81d67e5b536\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87904908618\",\"memberName\":\"北京市残联\",\"resourceID\":\"0000Z/00003\",\"resourceName\":\"残疾人信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-26 20:41:48\"},{\"belongParticipantCode\":\"45096be725444cce97adb007450eff40\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87904526112\",\"memberName\":\"北京市住房和城乡建设委员会\",\"resourceID\":\"0000Z/00002\",\"resourceName\":\"保障房信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-26 20:35:26\"}]}",
+                        "C-Response-Code": "000000000000"
+                    }
+                    ",
+                    "apiFailureMock": "",
+                    "apiRequestType": 0,
+                    "apiStatus": 0,
+                    "starred": 0,
+                    "apiNoteType": 1,
+                    "apiNoteRaw": "",
+                    "apiNote": "",
+                    "apiRequestParamType": 2,
+                    "apiRequestRaw": "",
+                    "apiRequestBinary": null,
+                    "apiFailureStatusCode": "200",
+                    "apiSuccessStatusCode": "200",
+                    "apiFailureContentType": "text/html; charset=UTF-8",
+                    "apiSuccessContentType": "text/html; charset=UTF-8",
+                    "apiRequestParamJsonType": 0,
+                    "advancedSetting": null,
+                    "beforeInject": null,
+                    "afterInject": null,
+                    "createTime": "2020-05-09 12:49:03",
+                    "apiUpdateTime": "2020-05-09 13:14:53",
+                    "apiTag": "1.0",
+                    "updateUserID": 157342,
+                    "createUserID": 157342
+                },
+                "responseHeader": [],
+                "headerInfo": [{
+                    "headerName": "tsStsTraceId",
+                    "headerValue": "11056897909",
+                    "paramNotNull": "0",
+                    "default": 0
+                }],
+                "authInfo": {
+                    "status": "0"
+                },
+                "requestInfo": [{
+                        "paramNotNull": "0",
+                        "paramType": "13",
+                        "paramName": "",
+                        "paramKey": "txnCommCom",
+                        "paramValue": "",
+                        "paramLimit": "",
+                        "paramNote": "",
+                        "paramValueList": [],
+                        "default": 0,
+                        "childList": [{
+                                "paramNotNull": "0",
+                                "paramType": "0",
+                                "paramName": "每页记录条数",
+                                "paramKey": "tRecInPage",
+                                "paramValue": "10",
+                                "paramLimit": "",
+                                "paramNote": "",
+                                "paramValueList": [],
+                                "default": 0,
+                                "childList": []
+                            },
+                            {
+                                "paramNotNull": "0",
+                                "paramType": "0",
+                                "paramName": "页码",
+                                "paramKey": "tPageJump",
+                                "paramValue": "1",
+                                "paramLimit": "",
+                                "paramNote": "",
+                                "paramValueList": [],
+                                "default": 0,
+                                "childList": []
+                            }
+                        ]
+                    },
+                    {
+                        "paramNotNull": "0",
+                        "paramType": "13",
+                        "paramName": "",
+                        "paramKey": "txnBodyCom",
+                        "paramValue": "",
+                        "paramLimit": "",
+                        "paramNote": "",
+                        "paramValueList": [],
+                        "default": 0,
+                        "childList": []
+                    }
+                ],
+                "urlParam": [],
+                "restfulParam": [],
+                "resultInfo": [{
+                        "paramNotNull": "0",
+                        "paramName": "响应描述",
+                        "paramKey": "C-Response-Desc",
+                        "type": "0",
+                        "paramType": "0",
+                        "paramValueList": [{
+                            "value": "",
+                            "paramType": "0",
+                            "valueDescription": ""
+                        }],
+                        "paramValue": "success"
+                    },
+                    {
+                        "paramNotNull": "0",
+                        "paramName": "响应状态码",
+                        "paramKey": "C-API-Status",
+                        "type": "0",
+                        "paramType": "0",
+                        "paramValueList": [{
+                            "value": "",
+                            "paramType": "0",
+                            "valueDescription": ""
+                        }],
+                        "paramValue": "00"
+                    },
+                    {
+                        "paramNotNull": "0",
+                        "paramName": "返回的结果数据",
+                        "paramKey": "C-Response-Body",
+                        "type": "0",
+                        "paramType": "0",
+                        "paramValueList": [{
+                            "value": "",
+                            "paramType": "0",
+                            "valueDescription": ""
+                        }],
+                        "paramValue": "{"
+                        txnCommCom ":{"
+                        tCurrTotalPage ":"
+                        1 ","
+                        tCurrTotalRec ":"
+                        10 ","
+                        totalPage ":"
+                        1 ","
+                        totalRec ":"
+                        3 "},"
+                        txnBodyCom ":[{"
+                        belongParticipantCode ":"
+                        be7cb6e021c64256aee03a9203eaf9d7 ","
+                        catalogType ":"
+                        结构化数据 ","
+                        id ":"
+                        TK_87969450778 ","
+                        memberName ":"
+                        北京市公安局 ","
+                        resourceID ":"
+                        0000 Z / 00007 ","
+                        resourceName ":"
+                        户籍人口登记信息 ","
+                        status ":"
+                        正常 ","
+                        updateCycleCode ":"
+                        实时 ","
+                        updateTime ":"
+                        2020 - 04 - 27 14: 37: 30 "},{"
+                        belongParticipantCode ":"
+                        a3a2277cc0ad4585af53d81d67e5b536 ","
+                        catalogType ":"
+                        结构化数据 ","
+                        id ":"
+                        TK_87904908618 ","
+                        memberName ":"
+                        北京市残联 ","
+                        resourceID ":"
+                        0000 Z / 00003 ","
+                        resourceName ":"
+                        残疾人信息 ","
+                        status ":"
+                        正常 ","
+                        updateCycleCode ":"
+                        实时 ","
+                        updateTime ":"
+                        2020 - 04 - 26 20: 41: 48 "},{"
+                        belongParticipantCode ":"
+                        45096 be725444cce97adb007450eff40 ","
+                        catalogType ":"
+                        结构化数据 ","
+                        id ":"
+                        TK_87904526112 ","
+                        memberName ":"
+                        北京市住房和城乡建设委员会 ","
+                        resourceID ":"
+                        0000 Z / 00002 ","
+                        resourceName ":"
+                        保障房信息 ","
+                        status ":"
+                        正常 ","
+                        updateCycleCode ":"
+                        实时 ","
+                        updateTime ":"
+                        2020 - 04 - 26 20: 35: 26 "}]}"
+                    },
+                    {
+                        "paramNotNull": "0",
+                        "paramName": "响应编码",
+                        "paramKey": "C-Response-Code",
+                        "type": "0",
+                        "paramType": "0",
+                        "paramValueList": [{
+                            "value": "",
+                            "paramType": "0",
+                            "valueDescription": ""
+                        }],
+                        "paramValue": "000000000000"
+                    }
+                ],
+                "resultParamJsonType": 0,
+                "resultParamType": 0,
+                "structureID": "[]",
+                "databaseFieldID": "[]",
+                "globalStructureID": "[]",
+                "fileID": null,
+                "tagID": [
+                    137998
+                ],
+                "groupName": "交换任务",
+                "apiType": "http",
+                "testCastList": [],
+                "dataStructureList": [],
+                "globalDataStructureList": [],
+                "mockExpectationList": [{
+                        "expectationID": 1215742,
+                        "expectationName": "无条件查询-header添加：use-data=mock",
+                        "triggerCondition": "{"
+                        headerParam ":[{"
+                        paramKey ":"
+                        use - data ","
+                        paramValue ":"
+                        mock "}],"
+                        bodyParam ":[{"
+                        paramKey ":"
+                        txnCommCom ","
+                        paramValue ":"
+                        ","
+                        matchRule ":"
+                        1 ","
+                        paramType ":"
+                        13 ","
+                        isLoop ":"
+                        0 ","
+                        childList ":[{"
+                        paramKey ":"
+                        tRecInPage ","
+                        paramValue ":"\
+                        "\"",
+                        "paramType": "0",
+                        "matchRule": "2",
+                        "isLoop": "0"
+                    },
+                    {
+                        "paramKey": "tPageJump",
+                        "paramValue": "\"\"",
+                        "paramType": "0",
+                        "matchRule": "2",
+                        "isLoop": "0"
+                    }
+                ]
+            }],
+            "urlParam": [],
+            "bodyParamJsonType": "0",
+            "bodyParamType": "1",
+            "restParam": []
+        }
+        ",
+        "responseHttpCode": "200",
+        "responseDelay": "0.00",
+        "responseHeader": "[]",
+        "responseBodySettingType": 1,
+        "mockConfig": "{}",
+        "mockRule": "{
+        "C-Response-Desc": "success",
+        "C-API-Status": "00",
+        "C-Response-Body": "{\"txnCommCom\":{\"tCurrTotalPage\":\"1\",\"tCurrTotalRec\":\"10\",\"totalPage\":\"1\",\"totalRec\":\"3\"},\"txnBodyCom\":[{\"belongParticipantCode\":\"m-001\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87969450778\",\"memberName\":\"公安局\",\"resourceID\":\"0000Z/00007\",\"resourceName\":\"户籍人口登记信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-27 14:37:30\"},{\"belongParticipantCode\":\"m-002\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87904908618\",\"memberName\":\"残联\",\"resourceID\":\"0000Z/00003\",\"resourceName\":\"残疾人信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-26 20:41:48\"},{\"belongParticipantCode\":\"m-003\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87904526112\",\"memberName\":\"城建局\",\"resourceID\":\"0000Z/00002\",\"resourceName\":\"保障房信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-26 20:35:26\"}]}",
+        "C-Response-Code": "000000000000"
+    }
+    ",
+    "mockResult": "{
+    "C-Response-Desc": "success",
+    "C-API-Status": "00",
+    "C-Response-Body": "{\"txnCommCom\":{\"tCurrTotalPage\":\"1\",\"tCurrTotalRec\":\"10\",\"totalPage\":\"1\",\"totalRec\":\"3\"},\"txnBodyCom\":[{\"belongParticipantCode\":\"m-001\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87969450778\",\"memberName\":\"公安局\",\"resourceID\":\"0000Z/00007\",\"resourceName\":\"户籍人口登记信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-27 14:37:30\"},{\"belongParticipantCode\":\"m-002\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87904908618\",\"memberName\":\"残联\",\"resourceID\":\"0000Z/00003\",\"resourceName\":\"残疾人信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-26 20:41:48\"},{\"belongParticipantCode\":\"m-003\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87904526112\",\"memberName\":\"城建局\",\"resourceID\":\"0000Z/00002\",\"resourceName\":\"保障房信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-26 20:35:26\"}]}",
+    "C-Response-Code": "000000000000"
+}
+",
+"updateTime": "2020-05-14 15:51:46"
+}, {
+    "expectationID": 1215743,
+    "expectationName": "条件查询-header添加：use-data=mock",
+    "triggerCondition": "{"
+    headerParam ":[{"
+    paramKey ":"
+    use - data ","
+    paramValue ":"
+    mock "}],"
+    bodyParam ":[{"
+    paramKey ":"
+    txnCommCom ","
+    paramValue ":"
+    ","
+    paramType ":"
+    13 ","
+    matchRule ":"
+    1 ","
+    isLoop ":"
+    0 ","
+    childList ":[{"
+    paramKey ":"
+    tRecInPage ","
+    paramValue ":"\
+    "\"",
+    "paramType": "0",
+    "matchRule": "2",
+    "isLoop": "0"
+}, {
+    "paramKey": "tPageJump",
+    "paramValue": "\"\"",
+    "paramType": "0",
+    "matchRule": "2",
+    "isLoop": "0"
+}
+]
+}, {
+    "paramKey": "txnBodyCom",
+    "paramValue": "",
+    "paramType": "13",
+    "matchRule": "1",
+    "isLoop": "0",
+    "childList": [{
+        "paramKey": "memberName",
+        "paramValue": "\"\"",
+        "paramType": "0",
+        "matchRule": "2",
+        "isLoop": "0"
+    }]
+}
+],
+"urlParam": [],
+"bodyParamJsonType": "0",
+"bodyParamType": "1",
+"restParam": []
+}
+",
+"responseHttpCode": "200",
+"responseDelay": "0.00",
+"responseHeader": "[]",
+"responseBodySettingType": 1,
+"mockConfig": "{}",
+"mockRule": "{
+"C-Response-Desc": "success",
+"C-API-Status": "00",
+"C-Response-Body": "{\"txnCommCom\":{\"tCurrTotalPage\":\"1\",\"tCurrTotalRec\":\"10\",\"totalPage\":\"1\",\"totalRec\":\"1\"},\"txnBodyCom\":[{\"belongParticipantCode\":\"m-001\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87969450778\",\"memberName\":\"公安局\",\"resourceID\":\"0000Z/00007\",\"resourceName\":\"户籍人口登记信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-27 14:37:30\"}]}",
+"C-Response-Code": "000000000000"
+}
+",
+"mockResult": "{
+"C-Response-Desc": "success",
+"C-API-Status": "00",
+"C-Response-Body": "{\"txnCommCom\":{\"tCurrTotalPage\":\"1\",\"tCurrTotalRec\":\"10\",\"totalPage\":\"1\",\"totalRec\":\"1\"},\"txnBodyCom\":[{\"belongParticipantCode\":\"m-001\",\"catalogType\":\"结构化数据\",\"id\":\"TK_87969450778\",\"memberName\":\"公安局\",\"resourceID\":\"0000Z/00007\",\"resourceName\":\"户籍人口登记信息\",\"status\":\"正常\",\"updateCycleCode\":\"实时\",\"updateTime\":\"2020-04-27 14:37:30\"}]}",
+"C-Response-Code": "000000000000"
+}
+",
+"updateTime": "2020-05-14 15:51:46"
+}
+],
+"apiManagerID": null,
+"createUserID": 157342,
+"updateUserID": 157342,
+"apiID": 3757016,
+"swaggerID": null
+}
+]
+}
+],
+"apiGroupOrder": "{}",
+"dataStructureList": []
+}

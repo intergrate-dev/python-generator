@@ -1,0 +1,25 @@
+package {{ vo_package }};
+
+import java.util.List;
+import com.ccb.esp.cloud.matter.data.dos.BaseMDo;
+import com.ccb.cloud.log.Logger;
+import com.ccb.cloud.log.LoggerFactory;
+
+public class {{ class_name }}Vo {
+    private Logger log = LoggerFactory.getLogger({{ class_name }}Vo.class);
+    
+    {% for column in columns.keys() %}
+    private String {{ columns[column][2] }};
+    {% endfor %}
+    
+    {% for column in columns.keys() %}
+    public String get{{ '{}{}'.format(columns[column][2][0].upper(),columns[column][2][1:]) }}() {
+        return {{ columns[column][2] }};
+    }
+
+    public void set{{ '{}{}'.format(columns[column][2][0].upper(),columns[column][2][1:]) }}(String {{ columns[column][2] }}) {
+        this.{{ columns[column][2] }} = {{ columns[column][2] }};
+    }
+    {% endfor %}
+        
+}
