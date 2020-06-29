@@ -47,3 +47,4 @@ def list_of_groups(init_list, childern_list_len):
     count = len(init_list) % childern_list_len
     end_list.append(init_list[-count:]) if count !=0 else end_list
     return end_list
+

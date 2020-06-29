@@ -8,12 +8,11 @@ import com.alibaba.fastjson.JSONObject;
 import {{ do_entity }};
 import {{ vo_entity }};
 import {{ service_entity }};
-import com.ccb.cloud.basic.common.entity.ReqTxnCommCom;
-import com.ccb.cloud.basic.common.entity.ResTxnCommCom;
 import com.ccb.cloud.log.Logger;
 import com.ccb.cloud.log.LoggerFactory;
 import com.ccb.openframework.exception.CommonRuntimeException;
 import com.ccb.cloud.basic.common.entity.ErrorCodeEnum;
+import com.ccb.cloud.basic.common.entity.ComInfoEntity;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +32,15 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
         {{ class_name }}Do {{ small_class_name }}Do = null;
         try{
             JSONObject request = JSONObject.parseObject(jsonString);
-            JSONObject body = JSONObject.parseObject(request.getString(ReqTxnCommCom.TXN_BODY_COM));
-            ReqTxnCommCom common = getReqTxnComm(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
             {{ small_class_name }}Do = JSONObject.parseObject(body.getString("{{ small_class_name }}"), {{ class_name }}Do.class);
             Map doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
+            {{ small_class_name }}Do.set{{ '{}{}'.format(id[0].upper(),id[1:]) }}(String.valueOf(System.currentTimeMillis()));
             {{ small_class_name }}Do.insert{{ class_name }}();
             
             JSONObject jsonCommon = new JSONObject();
-            jsonCommon.put("tStsTraceId", common.getTStsTraceId());
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("message", "创建成功");
             return getObject(jsonCommon, jsonBody);
@@ -53,16 +53,14 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
     @Override
     public String getList(String jsonString) throws Exception {
         try{
-            //this.checkReqParams(jsonString);
-            ReqTxnCommCom common = getReqTxnComm(jsonString);
-            //this.checkPage(common);
+            ComInfoEntity common = getReqTxnComm(jsonString);
             ResTxnCommCom rtc = new ResTxnCommCom();
-            rtc.setStsTraceId(common.getTStsTraceId());
-            rtc.setTCurrTotalPage(common.getTPageJump());
-            rtc.setTCurrTotalRec(common.getTRecInPage());
+            rtc.put("stsTraceId", common.gettStsTraceId());
+            rtc.put("tCurrTotalPage", common.getTPageJump());
+            rtc.put("tCurrTotalRec", common.gettTRecInPage());
             Map<String, Object> map = new HashMap();
-            Integer pageNo = Integer.valueOf(StringUtils.defaultIfEmpty(common.getTPageJump(), "1"));
-            Integer pageSize = Integer.valueOf(StringUtils.defaultIfEmpty(common.getTRecInPage(), "10"));
+            Integer pageNo = common.getTPageJump() == null ? 1 : common.getTPageJump();
+            Integer pageSize = common.gettTRecInPage() == null ? 10 : common.gettTRecInPage();
             map.put("tPageJump", (pageNo - 1) * pageSize);
             map.put("tRecInPage", pageSize);
             {{ class_name }}Do {{ small_class_name }}Do = new {{ class_name }}Do();
@@ -70,9 +68,9 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
             List<{{ class_name }}Vo> dataList = {{ small_class_name }}Do.queryDataList(map);
 
             JSONObject request = JSONObject.parseObject(jsonString);
-            JSONObject body = JSONObject.parseObject(request.getString(ReqTxnCommCom.TXN_BODY_COM));
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
             JSONObject jsonCommon = new JSONObject();
-            jsonCommon.put("tStsTraceId", common.getTStsTraceId());
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
             this.setPage(common, rtc, total);
             return getObject(rtc, dataList);
         } catch(Exception e) {
@@ -85,12 +83,11 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
     public String getDetail(String jsonString) throws Exception {
         String {{ id }} = null;
         try{
-            //this.checkReqParams(jsonString);
-            ReqTxnCommCom common = getReqTxnComm(jsonString);
+            ComInfoEntity common = getReqTxnComm(jsonString);
             JSONObject request = JSONObject.parseObject(jsonString);
-            JSONObject body = JSONObject.parseObject(request.getString(ReqTxnCommCom.TXN_BODY_COM));
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
             JSONObject jsonCommon = new JSONObject();
-            jsonCommon.put("tStsTraceId", common.getTStsTraceId());
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
             {{ id }} = body.getString("{{ id }}");
 
             Map<String, Object> map = new HashMap<>();
@@ -113,14 +110,13 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
         Map doMap = null;
         try{
             JSONObject request = JSONObject.parseObject(jsonString);
-            JSONObject body = JSONObject.parseObject(request.getString(ReqTxnCommCom.TXN_BODY_COM));
-            ReqTxnCommCom common = getReqTxnComm(jsonString);
-            //{{ small_class_name }}Do = JSONObject.parseObject(body.getString("{{ small_class_name }}"), {{ class_name }}Do.class);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
             doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
 
             new {{ class_name }}Do().update{{ class_name }}(doMap);
             JSONObject jsonCommon = new JSONObject();
-            jsonCommon.put("tStsTraceId", common.getTStsTraceId());
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("message", "修改成功");
             return getObject(jsonCommon, jsonBody);
@@ -136,13 +132,13 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
         Map doMap = null;
         try{
             JSONObject request = JSONObject.parseObject(jsonString);
-            JSONObject body = JSONObject.parseObject(request.getString(ReqTxnCommCom.TXN_BODY_COM));
-            ReqTxnCommCom common = getReqTxnComm(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
             doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
             doMap.put("state", "1");
             new {{ class_name }}Do().update{{ class_name }}(doMap);
             JSONObject jsonCommon = new JSONObject();
-            jsonCommon.put("tStsTraceId", common.getTStsTraceId());
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("message", "发布成功");
             return getObject(jsonCommon, jsonBody);
@@ -158,13 +154,13 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
         Map doMap = null;
         try{
             JSONObject request = JSONObject.parseObject(jsonString);
-            JSONObject body = JSONObject.parseObject(request.getString(ReqTxnCommCom.TXN_BODY_COM));
-            ReqTxnCommCom common = getReqTxnComm(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
             doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
             doMap.put("state", "0");
             new {{ class_name }}Do().update{{ class_name }}(doMap);
             JSONObject jsonCommon = new JSONObject();
-            jsonCommon.put("tStsTraceId", common.getTStsTraceId());
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("message", "注销成功");
             return getObject(jsonCommon, jsonBody);
@@ -180,20 +176,20 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
         return null;
     }
 
-    private ReqTxnCommCom getReqTxnComm(String jsonString) {
+    private ComInfoEntity getReqTxnComm(String jsonString) {
         JSONObject request = JSONObject.parseObject(jsonString);
-        return JSONObject.parseObject(request.getString(ReqTxnCommCom.TXN_COMM_COM), ReqTxnCommCom.class);
+        return JSONObject.parseObject(request.getString("txnCommCom"), ComInfoEntity.class);
     }
 
     private String getObject(Object common, Object body) {
         JSONObject result = new JSONObject();
-        result.put(ReqTxnCommCom.TXN_COMM_COM, common);
-        result.put(ReqTxnCommCom.TXN_BODY_COM, body);
+        result.put("txnCommCom", common);
+        result.put("txnBodyCom", body);
         return result.toString();
     }
 
-    private void setPage(ReqTxnCommCom common, ResTxnCommCom rtc, Integer total) {
-        Integer pageSize = Integer.parseInt(common.getTRecInPage());
+    private void setPage(ComInfoEntity common, JSONObject rtc, Integer total) {
+        Integer pageSize = Integer.parseInt(common.gettTRecInPage());
         rtc.setTotalPage(String.valueOf((total + pageSize - 1)/ pageSize));
         rtc.setTotalRec(String.valueOf(total));
     }

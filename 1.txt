@@ -1,0 +1,62 @@
+DROP TABLE IF EXISTS `exchange_manage`;
+CREATE TABLE `exchange_manage` (
+`exchangeMetadataId` varchar(20)	CHARACTER SET utf8mb4 NOT NULL COMMENT	'主键，唯一标识',
+`resourceCode` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源编码',
+`resourceName` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源名称',
+`resourceOwner` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源提供方',
+`resourceSubscriber` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源订阅方',
+`exchangeTarget` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'交换目的',
+`subscribeType` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'订阅类型',
+`incrementalFlag` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'增量标识',
+`initializeFlag` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'初始化标识',
+`createTime` varchar(20)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'创建时间',
+`effectiveState` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'是否有效  0-无效，1-有效',
+`exchangeState` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'交换状态 1-启用，2-停用，3-废弃',
+PRIMARY KEY (`exchangeMetadataId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT '交换管理';
+
+
+
+DROP TABLE IF EXISTS `collect_manage`;
+CREATE TABLE `collect_manage` (
+`exchangeMetadataId` varchar(20) CHARACTER SET utf8mb4 NOT NULL COMMENT	'主键，唯一标识',
+`resourceCode` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源编码',
+`resourceName` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源名称',
+`resourceOwner` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源提供方',
+`resourceSubscriber` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源订阅方',
+`exchangeType` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'交换资源类型',
+`effectiveState` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'是否有效  0-无效，1-有效',
+`exchangeState` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'交换状态 1-启用，2-停用，3-废弃',
+`createTime` varchar(20)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'创建时间',
+PRIMARY KEY (`exchangeMetadataId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT '归集管理';
+
+
+
+DROP TABLE IF EXISTS `exchange_task`;
+CREATE TABLE `exchange_task` (
+`exchangeMetadataId` varchar(20)	CHARACTER SET utf8mb4 NOT NULL COMMENT	'交换元数据编码',
+`taskMetadataId` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'任务元数据编码',
+`resourceName` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源名称',
+`resourceOwner` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源提供方',
+`resourceSubscriber` varchar(50)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'信息资源订阅方',
+`taskState` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'任务状态',
+`exchangeScene` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'交换场景',
+`taskMetadataType` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'任务类型',
+`taskExecuteCycle` varchar(20)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'执行周期',
+`createTime` varchar(20)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'任务创建时间',
+`taskExecuteState` varchar(2)	CHARACTER SET utf8mb4 DEFAULT NULL COMMENT	'任务执行状态;1-待执行，2-执行中，3-成功，4-失败，9-消息已发送',
+PRIMARY KEY (`exchangeMetadataId`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT '交换任务';
+
+
+SELECT
+TABLE_NAME 
+FROM
+information_schema.TABLES 
+WHERE
+TABLE_SCHEMA = 'test'
+
+
+
+

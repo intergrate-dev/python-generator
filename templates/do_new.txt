@@ -3,14 +3,14 @@ package {{ do_package }};
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import com.ccb.esp.cloud.matter.data.dos.BaseMDo;
+import com.ccb.cloud.data.dos.BaseDos;
 import {{ vo_entity }};
 import com.ccb.cloud.log.Logger;
 import com.ccb.cloud.log.LoggerFactory;
 import com.ccb.openframework.exception.CommonRuntimeException;
 import com.ccb.pub.ErrorCodeEnum;
 
-public class {{ class_name }}Do extends BaseMDo<{{ class_name }}Do>{
+public class {{ class_name }}Do extends BaseDos {
     private Logger log = LoggerFactory.getLogger({{ class_name }}Do.class);
     
     private String {{ id }};

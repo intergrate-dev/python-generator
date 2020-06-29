@@ -1,7 +1,6 @@
 package {{ vo_package }};
 
-import java.util.List;
-import com.ccb.esp.cloud.matter.data.dos.BaseMDo;
+
 import com.ccb.cloud.log.Logger;
 import com.ccb.cloud.log.LoggerFactory;
 

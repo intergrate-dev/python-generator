@@ -18,7 +18,6 @@ base_page = s['base_page']
 title = s['title']
 path = s['path']
 
-
 @app.route('/index')
 def index():
     return render_template('create_class.html', **table_list)
@@ -39,6 +38,7 @@ def create_class():
     table = request.form['table']
     if len(table) <= 0:
         msg = 'request data json is null!'
+    table_comment = get_table_comment(table)
     result = get_column(table)
     column = result[0]
 
@@ -60,7 +60,7 @@ def create_class():
             create_entity(table, package, column, d)
         Vo = request.form.get('Api')
         if Vo and len(Vo) >= 1:
-            create_Api(table, package, d, result)
+            create_Api(table, package, d, result, table_comment)
             print('--- create Api doc')
         Vo = request.form.get('Vo')
         if Vo and len(Vo) >= 1:
@@ -79,13 +79,13 @@ def create_class():
         service = request.form.get('service')
         if service and len(service) >= 1:
             print('--- create service class')
-            create_service(table, package, d)
-            create_service_impl(table, package, d, result)
+            create_service(table, package, d, table_comment)
+            create_service_impl(table, package, d, result, table_comment)
         controller = request.form.get('controller')
         ds = request.form.get('Do')
         if ds and len(ds) >= 1:
             print('--- create do class')
-            create_do(table, package, d, result)
+            create_do(table, package, d, result, table_comment)
         if controller and len(controller) >= 1:
             print('--- create controller class')
             create_controller(table, package, d)
@@ -207,14 +207,15 @@ def insert_value(columns):
 
 
 # 创建Service
-def create_service(class_name, package, date):
+def create_service(class_name, package, date, table_comment):
     c = {'service_package': package + '.service',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
          'entity_package': package + '.entity.' + class_name,
-         'dao_package': package + '.dos.' + class_name + 'Do',
+         'do_entity': package + '.dos.' + class_name + 'Do',
          'date': date,
-         'vo_entity': package + '.vo.' + class_name + 'Vo'
+         'vo_entity': package + '.vo.' + class_name + 'Vo',
+         'class_comment': table_comment
          }
     # s = render_template('service_templates.html', **c)
     s = render_template('service.txt', **c)
@@ -222,7 +223,7 @@ def create_service(class_name, package, date):
 
 
 # 创建Service
-def create_service_impl(class_name, package, date, result):
+def create_service_impl(class_name, package, date, result, table_comment):
     c = {'package': package + '.service.impl',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
@@ -230,6 +231,7 @@ def create_service_impl(class_name, package, date, result):
          'id': result[1][0],
          'vo_entity': package + '.vo.' + class_name + 'Vo',
          'do_entity': package + '.dos.' + class_name + 'Do',
+         'class_comment': table_comment,
          'service_entity': package + '.service.' + class_name + 'Service'
          }
     # s = render_template('service_templates_impl.html', **c)
@@ -237,7 +239,7 @@ def create_service_impl(class_name, package, date, result):
     create_java_file(class_name + 'ServiceImpl', package + '.service.impl', s)
 
 # 创建Do
-def create_do(class_name, package, date, result):
+def create_do(class_name, package, date, result, table_comment):
     c = {'package': package + '.dos',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
@@ -247,6 +249,7 @@ def create_do(class_name, package, date, result):
          'date': date,
          'id': result[1][0],
          'columns': result[0],
+         'class_comment': table_comment,
          'vo_entity': package + '.vo.' + class_name + 'Vo'
          }
     # s = render_template('do_templates_impl.html', **c)
@@ -255,7 +258,7 @@ def create_do(class_name, package, date, result):
     create_java_file(class_name + 'Do', package + '.dos', s)
 
 # 创建Api
-def create_Api(class_name, package, date, result):
+def create_Api(class_name, package, date, result, table_comment):
     host = "localhost"
     # raw_json = {"txnCommCom":{"txnIttChnlId":"1","txnIttChlCgyCode":"1"},"txnBodyCom":{"f1":"123","f2":"wrt"}}
     small_class = small_str(class_name)
@@ -274,6 +277,7 @@ def create_Api(class_name, package, date, result):
          'port': '8080',
          'body_raw': raw_str,
          'id': result[1][0],
+         'class_comment': table_comment,
          'columns': result[0]
          }
     # s = render_template('do_templates_impl.html', **c)
@@ -406,6 +410,25 @@ def entity_json(result, is_create):
             e_json[item] = ''.join(random.sample(y, random.randint(4, 10)))
     print(e_json)
     return e_json
+
+
+def get_table_comment(table_name):
+    # size = 10
+    # cursor = db.cursor()
+    sql = """SELECT
+             TABLE_COMMENT 
+             FROM
+                information_schema.TABLES 
+             WHERE
+                TABLE_SCHEMA = """ + "'" + connectDB.date_name + "'" + """ AND TABLE_NAME = """ + "'" + table_name + "'" 
+    try:
+        # 获取备注
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        return results[0][0];
+    except Exception:
+        print('traceback.format_exc():\n%s' % traceback.format_exc())
+    
 
 if __name__ == '__main__':
     app.run()

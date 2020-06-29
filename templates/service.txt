@@ -1,16 +1,12 @@
 package {{ service_package }};
 
-import java.util.List;
-import com.ccb.esp.cloud.matter.data.dos.BaseMDo;
-import {{ vo_entity }};
+
 import {{ do_entity }};
-import com.ccb.cloud.log.Logger;
-import com.ccb.cloud.log.LoggerFactory;
 
 public interface {{ class_name }}Service {
     
     /**
-     * 插入xx
+     * 插入{{ class_comment }}
      *
      * @param jsonString
      * @return
@@ -18,7 +14,7 @@ public interface {{ class_name }}Service {
     public String create{{ class_name }}(String jsonString) throws Exception;
     
     /**
-     * 分页查询xx
+     * 分页查询{{ class_comment }}
      *
      * @param jsonString
      * @return
@@ -26,7 +22,7 @@ public interface {{ class_name }}Service {
     public String getList(String jsonString) throws Exception;
 
     /**
-     * 查询xx详情
+     * 查询{{ class_comment }}详情
      *
      * @param jsonString
      * @return
@@ -36,7 +32,7 @@ public interface {{ class_name }}Service {
     public {{ class_name}}Do get{{ class_name }}ById(String id) throws Exception;
 
     /**
-     * 更新xx
+     * 更新{{ class_comment }}
      *
      * @param jsonString
      * @return
@@ -44,7 +40,7 @@ public interface {{ class_name }}Service {
     public String update(String jsonString) throws Exception;
 
     /**
-     * 发布xx
+     * 发布{{ class_comment }}
      *
      * @param jsonString
      * @return
@@ -52,7 +48,7 @@ public interface {{ class_name }}Service {
     public String publish(String jsonString) throws Exception;
 
     /**
-     * 注销xx
+     * 注销{{ class_comment }}
      *
      * @param jsonString
      * @return
@@ -60,7 +56,7 @@ public interface {{ class_name }}Service {
     public String revocate(String jsonString) throws Exception;
 
     /**
-     * 删除xx
+     * 删除{{ class_comment }}
      *
      * @param jsonString
      * @return

@@ -5,7 +5,7 @@ mysql:
   user: root
   password: '123456'
 
-pre_package: com.ccb.portal.
+pre_package: com.ccb.cloud.metadata.
 base_page: com.hwr.common
 title: wechat
 path: E:/data/python/gen/

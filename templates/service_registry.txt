@@ -1,4 +1,4 @@
-<!-- xx接口列表 -->
+<!-- {{ class_comment }}接口列表 -->
 <service uri="bdc/create{{ class_name }}" http-request-method="POST" bean-id="portal.{{ class_name }}Service" method="create{{ class_name }}" />
 <service uri="bdc/getList" http-request-method="POST" bean-id="portal.{{ class_name }}Service" method="getList" />
 <service uri="bdc/getDetail" http-request-method="POST" bean-id="portal.{{ class_name }}Service" method="getDetail" />
