@@ -1,5 +1,6 @@
-package {{ do_package }};
+package {{ package }};
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -8,32 +9,22 @@ import {{ vo_entity }};
 import com.ccb.cloud.log.Logger;
 import com.ccb.cloud.log.LoggerFactory;
 import com.ccb.openframework.exception.CommonRuntimeException;
-import com.ccb.pub.ErrorCodeEnum;
+import com.ccb.cloud.basic.common.consts.ErrorCodeEnum;
 
 public class {{ class_name }}Do extends BaseDos {
     private Logger log = LoggerFactory.getLogger({{ class_name }}Do.class);
-    
-    private String {{ id }};
-    {% for column in columns.keys() %}
-    private String {{ columns[column][2] }};
-    {% endfor %}
-    
-    public String get{{ '{}{}'.format(id[0].upper(),id[1:]) }}() {
-        return this.{{ id }};
+
+    {{ propertys | safe }}      
+
+    {% for column in columns_1 %}
+    public {{ column['type'] }} get{{ '{}{}'.format(column['field'][0].upper(),column['field'][1:]) }}() {
+        return {{ column['field'] }};
     }
 
-    public void set{{ '{}{}'.format(id[0].upper(),id[1:]) }}(String {{ id }}) {
-        this.{{ id }} = {{ id }};
+    public void set{{ '{}{}'.format(column['field'][0].upper(),column['field'][1:]) }}({{ column['type'] }} {{ column['field'] }}) {
+        this.{{ column['field'] }} = {{ column['field'] }};
     }
-    {% for column in columns.keys() %}
-    public String get{{ '{}{}'.format(columns[column][2][0].upper(),columns[column][2][1:]) }}() {
-        return {{ columns[column][2] }};
-    }
-
-    public void set{{ '{}{}'.format(columns[column][2][0].upper(),columns[column][2][1:]) }}(String {{ columns[column][2] }}) {
-        this.{{ columns[column][2] }} = {{ columns[column][2] }};
-    }
-    {% endfor %}
+    {% endfor %}  
 
 	public int insert{{ class_name }}() throws Exception {
         int i = 0;

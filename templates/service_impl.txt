@@ -13,7 +13,7 @@ import com.ccb.cloud.basic.common.entity.ResTxnCommCom;
 import com.ccb.cloud.log.Logger;
 import com.ccb.cloud.log.LoggerFactory;
 import com.ccb.openframework.exception.CommonRuntimeException;
-import com.ccb.cloud.basic.common.entity.ErrorCodeEnum;
+import com.ccb.cloud.basic.common.consts.ErrorCodeEnum;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -74,7 +74,7 @@ def create_class():
         dao = request.form.get('dao')
         if dao and len(dao) >= 1:
             print('--- create dao class')
-            create_dao(table, package, d)
+            # create_dao(table, package, d)
             create_xml(table, table_name, package, result)
         service = request.form.get('service')
         if service and len(service) >= 1:
@@ -94,15 +94,11 @@ def create_class():
 
 # 创建entity
 def create_entity(class_name, package, columns, date):
-    propertys = ''
-    if columns:
-        for key in columns.keys():
-            propertys += '/** \n *' + columns[key][1] + ' \n */ \n'
-            propertys += 'private %s %s;' % (columns[key][0], key) + '\n\n'
+    properties = get_class_properites(columns)            
     c = {'package': package + '.entity',
          'entity_package': package + '.entity.' + class_name,
          'class_name': class_name,
-         'propertys': propertys,
+         'propertys': properties[0],
          'date': date}
     s = render_template('entity_templates.html', **c)
     create_java_file(class_name, package + '.entity', s)
@@ -173,6 +169,8 @@ def create_xml(class_name, table_name, package, result):
 
     # insert = insert_value(result[0])
     insert = insert_value(result)
+    properties = get_class_properites(result[0])
+    idProp = reg_splitToTF('_', result[1][0])
     c = {'package': package + '.dao',
          'name_space': 'portal.' + class_name,
          'vo_entity': package + '.vo.' + class_name + 'Vo',
@@ -180,15 +178,17 @@ def create_xml(class_name, table_name, package, result):
          'class_name': class_name,
          'columns': result[0],
          'id': result[1][0],
+         'id_prop': idProp,
          'entity_id': entity_id,
          'column_': all_column,
+         'columns_1': properties[1],
          'table_name': table_name,
          'insert_column': insert_column,
          'insert_value': insert[0],
          'batch_insert_value': insert[1]
          }
-    s = render_template('entity_mysql_mapper_templates.html', **c)
-    create_java_file(class_name + 'Dao', package + '.dao', s, '.xml')
+    s = render_template('entity_mysql_mapper_templates_new.html', **c)
+    create_java_file(class_name + 'Dao', package + '.mapper', s, '.xml')
 
 
 def insert_value(columns):
@@ -196,6 +196,7 @@ def insert_value(columns):
     batch_insert_value = ''
     # for index, item in enumerate(columns.keys()):
     for index, item in enumerate(columns[1]):
+        item = reg_splitToTF('_', item)
         if index == 0:
             insert_value += '\n            #{' + item + '},\n'
             batch_insert_value += '\n            #{item.' + item + '},\n'
@@ -224,22 +225,34 @@ def create_service(class_name, package, date, table_comment):
 
 # 创建Service
 def create_service_impl(class_name, package, date, result, table_comment):
+    idProp = reg_splitToTF('_', result[1][0])
     c = {'package': package + '.service.impl',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
          'date': date,
          'id': result[1][0],
+         'idProp': idProp,
          'vo_entity': package + '.vo.' + class_name + 'Vo',
          'do_entity': package + '.dos.' + class_name + 'Do',
          'class_comment': table_comment,
          'service_entity': package + '.service.' + class_name + 'Service'
          }
     # s = render_template('service_templates_impl.html', **c)
-    s = render_template('service_impl.txt', **c)
+    # s = render_template('service_impl.txt', **c)
+    s = render_template('service_impl_new.txt', **c)
     create_java_file(class_name + 'ServiceImpl', package + '.service.impl', s)
 
 # 创建Do
 def create_do(class_name, package, date, result, table_comment):
+    properties = get_class_properites(result[0])
+    idProp = reg_splitToTF('_', result[1][0])
+    # y = result[0][idProp]
+    # id_comm = '/** \n *' + y[1] + ' \n */ \n'
+    # id_def = 'private %s %s;' % (y[0], y[2]) + '\n\n'
+    # id_info = {'comm': id_comm, 'def': id_def}
+
+    # {{ id_info.comm }}
+    # {{ id_info.def }}
     c = {'package': package + '.dos',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
@@ -247,13 +260,18 @@ def create_do(class_name, package, date, result, table_comment):
          'do_package': package + '.dos.' + class_name + 'Do',
          'service_package': package + '.service.' + class_name + 'Service',
          'date': date,
+         'propertys': properties[0],
+         'columns_1': properties[1],
          'id': result[1][0],
+         'idProp': idProp,
+        #  'id_info': id_info,
          'columns': result[0],
          'class_comment': table_comment,
          'vo_entity': package + '.vo.' + class_name + 'Vo'
          }
     # s = render_template('do_templates_impl.html', **c)
-    s = render_template('do.txt', **c)
+    # s = render_template('do.txt', **c)
+    s = render_template('do_new.txt', **c)
     print("create dos ...")
     create_java_file(class_name + 'Do', package + '.dos', s)
 
@@ -289,6 +307,7 @@ def create_Api(class_name, package, date, result, table_comment):
 
 # 创建Vo
 def create_Vo(class_name, package, date, result):
+    properties = get_class_properites(result[0])
     c = {'package': package + '.vo',
          'class_name': class_name,
          'small_class_name': small_str(class_name),
@@ -296,11 +315,14 @@ def create_Vo(class_name, package, date, result):
          'vo_package': package + '.vo.' + class_name + 'Vo',
          'service_package': package + '.service.' + class_name + 'Service',
          'date': date,
+         'propertys': properties[0],
+         'columns_1': properties[1],
          'id': result[1][0],
-         'columns': result[0]
          }
+        #  'columns': result[0]
     # s = render_template('do_templates_impl.html', **c)
-    s = render_template('vo.txt', **c)
+    # s = render_template('vo.txt', **c)
+    s = render_template('vo_new.txt', **c)
     print("create dos ...")
     create_java_file(class_name + 'Vo', package + '.vo', s)
 
@@ -363,10 +385,13 @@ def get_column(table_name):
         # 执行sql语句获取队列类型及备注
         cursor.execute(sql)
         results = cursor.fetchall()
+        print('-----------------------collumns row start -----------')
         for row in results:
+            print(row)
             tuple = (discern_type.discern_type(row[1]), row[2], row[0])
             columns[change_str(row[0])] = tuple
             columns_.append(row[0])
+        print('-----------------------collumns row end ----------------')
         result = (columns, columns_)
         return result
         # create_entity(table_name, package, columus, date)
@@ -379,7 +404,7 @@ def change_str(column):
     first = str_list[0].lower()
     others = str_list[1:]
 
-    others_capital = [word.capitalize() for word in others]  # str.capitalize():将字符串的首字母转化为大写
+    others_capital = [word.capitalize() for word in others]
     others_capital[0:0] = [first]
 
     hump_string = ''.join(others_capital)
@@ -429,6 +454,33 @@ def get_table_comment(table_name):
     except Exception:
         print('traceback.format_exc():\n%s' % traceback.format_exc())
     
+def get_class_properites(columns):
+    propertys = ''
+    list = []
+    if columns:
+        for key in columns.keys():
+            obj = {}
+            obj['type'] = columns[key][0]
+            obj['field'] = key
+            obj['sql_col'] = columns[key][2]
+            propertys += '/** \n *' + columns[key][1] + ' \n */ \n'
+            propertys += 'private %s %s;' % (columns[key][0], key) + '\n\n'
+            print(key)
+            list.append(obj)
+    return propertys, list;
+
+def reg_splitToTF(reg, tar):
+    hs = tar.split(reg)
+    idProp = ''
+    for index in range(0, len(hs)):
+        h = ''
+        if index > 0:
+            h = hs[index].capitalize()
+        else:
+            h += hs[index]
+        idProp += h
+    return idProp
+    # idProp = hs[0] + hs[1].capitalize() + hs[2].capitalize()
 
 if __name__ == '__main__':
     app.run()

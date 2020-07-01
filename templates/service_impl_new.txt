@@ -11,7 +11,7 @@ import {{ service_entity }};
 import com.ccb.cloud.log.Logger;
 import com.ccb.cloud.log.LoggerFactory;
 import com.ccb.openframework.exception.CommonRuntimeException;
-import com.ccb.cloud.basic.common.entity.ErrorCodeEnum;
+import com.ccb.cloud.basic.common.consts.ErrorCodeEnum;
 import com.ccb.cloud.basic.common.entity.ComInfoEntity;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -36,7 +36,7 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
             ComInfoEntity common = getReqTxnComm(jsonString);
             {{ small_class_name }}Do = JSONObject.parseObject(body.getString("{{ small_class_name }}"), {{ class_name }}Do.class);
             Map doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
-            {{ small_class_name }}Do.set{{ '{}{}'.format(id[0].upper(),id[1:]) }}(String.valueOf(System.currentTimeMillis()));
+            {{ small_class_name }}Do.set{{ '{}{}'.format(idProp[0].upper(),idProp[1:]) }}(String.valueOf(System.currentTimeMillis()));
             {{ small_class_name }}Do.insert{{ class_name }}();
             
             JSONObject jsonCommon = new JSONObject();
@@ -45,7 +45,7 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
             jsonBody.put("message", "创建成功");
             return getObject(jsonCommon, jsonBody);
         } catch(Exception e) {
-            log.info("create {{ small_class_name }} occure exception, {{ id }}: {}, error: {}", {{ small_class_name }}Do.get{{ '{}{}'.format(id[0].upper(),id[1:]) }}(), e.getMessage());
+            log.info("create {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", {{ small_class_name }}Do.get{{ '{}{}'.format(idProp[0].upper(),idProp[1:]) }}(), e.getMessage());
             throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "创建{{ class_comment }}失败");
         }
     }
@@ -54,13 +54,13 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
     public String getList(String jsonString) throws Exception {
         try{
             ComInfoEntity common = getReqTxnComm(jsonString);
-            ResTxnCommCom rtc = new ResTxnCommCom();
+            JSONObject rtc = new JSONObject();
             rtc.put("stsTraceId", common.gettStsTraceId());
-            rtc.put("tCurrTotalPage", common.getTPageJump());
-            rtc.put("tCurrTotalRec", common.gettTRecInPage());
+            rtc.put("tCurrTotalPage", common.gettPageJump());
+            rtc.put("tCurrTotalRec", common.gettRecInPage());
             Map<String, Object> map = new HashMap();
-            Integer pageNo = common.getTPageJump() == null ? 1 : common.getTPageJump();
-            Integer pageSize = common.gettTRecInPage() == null ? 10 : common.gettTRecInPage();
+            Integer pageNo = common.gettPageJump() == null ? 1 : common.gettPageJump();
+            Integer pageSize = common.gettRecInPage() == null ? 10 : common.gettRecInPage();
             map.put("tPageJump", (pageNo - 1) * pageSize);
             map.put("tRecInPage", pageSize);
             {{ class_name }}Do {{ small_class_name }}Do = new {{ class_name }}Do();
@@ -81,21 +81,21 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
 
     @Override
     public String getDetail(String jsonString) throws Exception {
-        String {{ id }} = null;
+        String {{ idProp }} = null;
         try{
             ComInfoEntity common = getReqTxnComm(jsonString);
             JSONObject request = JSONObject.parseObject(jsonString);
             JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
             JSONObject jsonCommon = new JSONObject();
             jsonCommon.put("tStsTraceId", common.gettStsTraceId());
-            {{ id }} = body.getString("{{ id }}");
+            {{ idProp }} = body.getString("{{ idProp }}");
 
             Map<String, Object> map = new HashMap<>();
-            map.put("{{id}}", {{ id }});
+            map.put("{{id}}", {{ idProp }});
             {{ vo_entity }} detail = new {{ class_name }}Do().queryDetail(map);
             return getObject(jsonCommon, detail);
         } catch(Exception e) {
-            log.info("getDetail {{ small_class_name }} occure exception, {{ id }}: {}, error: {}", {{ id }}, e.getMessage());
+            log.info("getDetail {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", {{ idProp }}, e.getMessage());
             throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "查询{{ class_comment }}详情失败");
         }
     }
@@ -121,7 +121,7 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
             jsonBody.put("message", "修改成功");
             return getObject(jsonCommon, jsonBody);
         } catch(Exception e) {
-            log.info("update {{ small_class_name }} occure exception, {{ id }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
+            log.info("update {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
             throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "修改{{ class_comment }}信息失败");
         }
     }
@@ -143,7 +143,7 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
             jsonBody.put("message", "发布成功");
             return getObject(jsonCommon, jsonBody);
         } catch(Exception e) {
-            log.info("publish {{ small_class_name }} occure exception, {{ id }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
+            log.info("publish {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
             throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "发布{{ class_comment }}失败");
         }
     }
@@ -165,7 +165,7 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
             jsonBody.put("message", "注销成功");
             return getObject(jsonCommon, jsonBody);
         } catch(Exception e) {
-            log.info("revocate {{ small_class_name }} occure exception, {{ id }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
+            log.info("revocate {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
             throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "注销{{ class_comment }}失败");
         }
     }
@@ -189,9 +189,9 @@ public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
     }
 
     private void setPage(ComInfoEntity common, JSONObject rtc, Integer total) {
-        Integer pageSize = Integer.parseInt(common.gettTRecInPage());
-        rtc.setTotalPage(String.valueOf((total + pageSize - 1)/ pageSize));
-        rtc.setTotalRec(String.valueOf(total));
+        Integer pageSize = common.gettRecInPage();
+        rtc.put("totalPage", String.valueOf((total + pageSize - 1)/ pageSize));
+        rtc.put("totalRec", String.valueOf(total));
     }
 
 }

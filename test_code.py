@@ -45,3 +45,12 @@ print(nums)
 tt=322
 tem='%d' %nums
 print('|' + tem + '|')
+
+
+hh = "excange_metadata_id"
+hs = hh.split('_')
+yy = hs[0] + hs[1].capitalize() + hs[2].capitalize()
+print(yy)
+
+for index in range(0, len(hs)):
+    print(hs[index])

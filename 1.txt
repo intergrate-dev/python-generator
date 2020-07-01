@@ -60,3 +60,14 @@ TABLE_SCHEMA = 'test'
 
 
 
+SELECT
+    COLUMN_NAME,
+    DATA_TYPE,
+    COLUMN_COMMENT 
+FROM
+    information_schema.COLUMNS 
+WHERE
+    TABLE_SCHEMA = 'test'
+    AND TABLE_NAME = 'md_task_metadata'
+
+    

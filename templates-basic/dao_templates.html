@@ -1,0 +1,65 @@
+package {{ package }};
+
+import org.springframework.stereotype.Component;
+
+import java.lang.annotation.*;
+import {{ entity_package }};
+import {{ vo_package }};
+import {{ dto_package }};
+import java.util.List;
+
+
+ /**
+ * @Description 数据库访问类
+ * @author admin
+ * @version V1.0
+ * @since V1.0
+ * @date {{ date }}
+ *
+ */
+@Component
+public interface {{ class_name }}Dao{
+    /**
+	 * @Description: 新增
+	 * @since V1.0
+	 * @param {{ small_class_name }}
+	 */
+     void insert({{ class_name }}DTO {{ small_class_name }});
+
+     /**
+	 * @Description: 批量新增
+	 * @since V1.0
+	 * @param list
+	 */
+     void batchInsert(List<{{ class_name }}DTO> list);
+
+    /**
+	 * @Description: 修改
+	 * @since V1.0
+	 * @param {{ small_class_name }}
+	 */
+	 void update({{ class_name }}DTO {{ small_class_name }});
+
+    /**
+	 * @Description: 批量删除
+	 * @since V1.0
+	 * @param ids
+	 */
+	 void delete(List<Long> ids);
+
+    /**
+	 * @Description: 查询列表
+	 * @since V1.0
+	 * @param {{ small_class_name }}
+	 */
+	 List<{{ class_name }}VO> list({{ class_name }}DTO {{ small_class_name }});
+
+
+    /**
+	 * @Description: 通过ID查询
+	 * @since V1.0
+	 * @param id
+	 */
+	 {{ class_name }}VO findById(String id);
+}
+

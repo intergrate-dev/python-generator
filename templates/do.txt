@@ -8,7 +8,7 @@ import {{ vo_entity }};
 import com.ccb.cloud.log.Logger;
 import com.ccb.cloud.log.LoggerFactory;
 import com.ccb.openframework.exception.CommonRuntimeException;
-import com.ccb.pub.ErrorCodeEnum;
+import com.ccb.cloud.basic.common.consts.ErrorCodeEnum;
 
 public class {{ class_name }}Do extends BaseMDo<{{ class_name }}Do>{
     private Logger log = LoggerFactory.getLogger({{ class_name }}Do.class);
