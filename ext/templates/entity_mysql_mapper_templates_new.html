@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="{{ name_space }}">
+
+    <resultMap type="{{ vo_entity }}" id="voResultMap">
+        <id property="{{ id_prop }}" column="{{ id }}" /> {% for column in columns_1 %}
+        <result property="{{ column['field'] }}" column="{{ column['sql_col'] }}" /> {% endfor %}
+    </resultMap>
+
+    <resultMap type="{{ do_entity }}" id="doResultMap">
+        <id property="{{ id_prop }}" column="{{ id }}" /> {% for column in columns_1 %}
+        <result property="{{ column['field'] }}" column="{{ column['sql_col'] }}" /> {% endfor %}
+    </resultMap>
+
+    <sql id="AllColumn">
+        {{ column_ }}
+    </sql>
+
+    <sql id="where_condition">
+        <if test="{{ id_prop }}!=null and  {{ id_prop }}!=''">
+            and {{ id }} = #{ {{ id_prop }}}
+        </if>
+        {% for column in columns_1 %}
+        <if test="{{ column['field'] }}!=null and  {{ column['field'] }}!=''">
+            and {{ column['sql_col'] }} = #{ {{ column['field'] }}}
+        </if>
+        {% endfor %}
+    </sql>
+
+    <select id="findById" resultMap="doResultMap" parameterType="java.util.HashMap">
+        select
+            <include refid="AllColumn"/>
+        from
+            {{ table_name }}
+        where
+            {{ id }} = #{ {{entity_id}}}
+    </select>
+
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+        select 
+            count(1)
+        from
+            {{ table_name }}
+        <where>
+            <include refid="where_condition"/>
+        </where>
+    </select>
+
+    <select id="queryListByMap" resultMap="voResultMap" parameterType="java.util.HashMap">
+        select
+            <include refid="AllColumn"/>
+        from
+            {{ table_name }}
+        <where>
+            <include refid="where_condition"/>
+        </where>
+        <if test="tPageJump != null and tRecInPage != null">
+            limit #{tPageJump}, #{tRecInPage}
+        </if>
+    </select>
+
+    <delete id="delete">
+        delete from {{ table_name }} where {{ id }} IN
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="{{ id }}" keyProperty="{{entity_id}}">
+        insert into {{ table_name }} ( {{ insert_column }} ) values ( {{ insert_value }} )
+    </insert>
+
+    <update id="updateByMap" parameterType="java.util.HashMap">
+        update {{ table_name }}
+        <set>
+            {% for column in columns_1 %}
+            <if test="{{ column['field'] }}!=null and  {{ column['field'] }}!=''">
+                {{ column['sql_col'] }} = #{ {{ column['field'] }}} ,
+            </if>
+            {% endfor %}
+        </set>
+        where {{ id }} = #{ {{entity_id}}}
+    </update>
+
+</mapper>

@@ -1,0 +1,21 @@
+package {{ package }};
+
+import java.util.Date;
+import com.ccb.cloud.log.Logger;
+import com.ccb.cloud.log.LoggerFactory;
+
+public class {{ class_name }}Vo {
+    private Logger log = LoggerFactory.getLogger({{ class_name }}Vo.class);
+    
+    {{ propertys | safe }}      
+
+    {% for column in columns_1 %}
+    public {{ column['type'] }} get{{ '{}{}'.format(column['field'][0].upper(),column['field'][1:]) }}() {
+        return {{ column['field'] }};
+    }
+
+    public void set{{ '{}{}'.format(column['field'][0].upper(),column['field'][1:]) }}({{ column['type'] }} {{ column['field'] }}) {
+        this.{{ column['field'] }} = {{ column['field'] }};
+    }
+    {% endfor %}  
+}

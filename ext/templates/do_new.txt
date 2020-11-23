@@ -1,0 +1,95 @@
+package {{ package }};
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import com.ccb.cloud.data.dos.BaseDos;
+import {{ vo_entity }};
+import com.ccb.cloud.log.Logger;
+import com.ccb.cloud.log.LoggerFactory;
+import com.ccb.openframework.exception.CommonRuntimeException;
+import com.ccb.cloud.basic.common.consts.ErrorCodeEnum;
+
+public class {{ class_name }}Do extends BaseDos {
+    private Logger log = LoggerFactory.getLogger({{ class_name }}Do.class);
+
+    {{ propertys | safe }}      
+
+    {% for column in columns_1 %}
+    public {{ column['type'] }} get{{ '{}{}'.format(column['field'][0].upper(),column['field'][1:]) }}() {
+        return {{ column['field'] }};
+    }
+
+    public void set{{ '{}{}'.format(column['field'][0].upper(),column['field'][1:]) }}({{ column['type'] }} {{ column['field'] }}) {
+        this.{{ column['field'] }} = {{ column['field'] }};
+    }
+    {% endfor %}  
+
+	public int insert{{ class_name }}() throws Exception {
+        int i = 0;
+        try{
+            i = _dao.insertBySqlMap_mybatis("portal.{{ small_class_name }}.insert", this);
+        } catch (Exception e) {
+            log.error("insert {{ small_class_name }} failure, message: {}", e.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.DB_OPERATION_ERR.getCode(), "插入{{ class_comment }}数据失败");
+        }
+        return i;
+	}
+
+    public int queryDataCount(Map<String, Object> map) throws Exception {
+        int count = 0;
+        try{
+            count = (Integer) _dao.findObjectBySqlMap_mybatis("portal.{{ small_class_name }}.queryCount", map);
+        } catch (Exception ex) {
+            log.error("queryDataCount {{ small_class_name }} failure, message: {}", ex.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.DB_OPERATION_ERR.getCode(), "查询{{ class_comment }}数据失败");
+        }
+        return count;
+	}
+
+    public List<{{ class_name }}Vo> queryDataList(Map<String, Object> map) throws Exception {
+        List<{{ class_name }}Vo> list = null;
+        try{
+            list = (List<{{ class_name }}Vo>) _dao.findListBySqlMap_mybatis("portal.{{ small_class_name }}.queryListByMap", map);
+        } catch (Exception ex) {
+            log.error("queryDataList {{ small_class_name }} failure, message: {}", ex.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.DB_OPERATION_ERR.getCode(), "查询{{ class_comment }}数据失败");
+        }
+        return list;
+	}
+
+    public {{ class_name }}Vo queryDetail(Map<String, Object> map) throws Exception {
+        List<{{ class_name }}Vo> list = null;
+        try{
+            list = (List<{{ class_name }}Vo>) _dao.findListBySqlMap_mybatis("portal.{{ small_class_name }}.queryListByMap", map);
+        } catch (Exception ex) {
+            log.error("queryDetail {{ small_class_name }} failure, message: {}", ex.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.DB_OPERATION_ERR.getCode(), "查询{{ class_comment }}数据失败");
+        }
+        return list == null || list.size() == 0 ? null : list.get(0);
+	}
+
+    public {{ class_name }}Do findById(String id) throws Exception {
+        List<{{ class_name }}Do> list = null;
+        try{
+            Map map = new HashMap();
+            map.put("{{ id }}", id);
+            list = (List<{{ class_name }}Do>) _dao.findListBySqlMap_mybatis("portal.{{ small_class_name }}.findById", map);
+        } catch (Exception ex) {
+            log.error("findById {{ small_class_name }} failure, message: {}", ex.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.DB_OPERATION_ERR.getCode(), "查询{{ class_comment }}数据失败");
+        }
+        return list == null || list.size() == 0 ? null : list.get(0);
+	}
+
+    public void update{{ class_name }}(Map<String, String> map) throws Exception {
+        try{
+            _dao.updateBySqlMap_mybatis("portal.{{ small_class_name }}.updateByMap", map);
+        } catch (Exception ex) {
+            log.error("update{{ class_name }} {{ small_class_name }} failure, message: {}", ex.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.DB_OPERATION_ERR.getCode(), "更新{{ class_comment }}数据失败");
+        }
+    }
+        
+}

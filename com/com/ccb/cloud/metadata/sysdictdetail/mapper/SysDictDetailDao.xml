@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="portal.SysDictDetail">
+
+    <resultMap type="com.ccb.cloud.metadata.sysdictdetail.vo.SysDictDetailVo" id="voResultMap">
+        <id property="detailId" column="detail_id" /> 
+        <result property="dictId" column="dict_id" /> 
+        <result property="label" column="label" /> 
+        <result property="value" column="value" /> 
+        <result property="dictSort" column="dict_sort" /> 
+        <result property="createBy" column="create_by" /> 
+        <result property="updateBy" column="update_by" /> 
+        <result property="createTime" column="create_time" /> 
+        <result property="updateTime" column="update_time" /> 
+    </resultMap>
+
+    <resultMap type="com.ccb.cloud.metadata.sysdictdetail.dos.SysDictDetailDo" id="doResultMap">
+        <id property="detailId" column="detail_id" /> 
+        <result property="dictId" column="dict_id" /> 
+        <result property="label" column="label" /> 
+        <result property="value" column="value" /> 
+        <result property="dictSort" column="dict_sort" /> 
+        <result property="createBy" column="create_by" /> 
+        <result property="updateBy" column="update_by" /> 
+        <result property="createTime" column="create_time" /> 
+        <result property="updateTime" column="update_time" /> 
+    </resultMap>
+
+    <sql id="AllColumn">
+        
+            detail_id,
+            dict_id,
+            label,
+            value,
+            dict_sort,
+            create_by,
+            update_by,
+            create_time,
+            update_time
+
+    </sql>
+
+    <sql id="where_condition">
+        <if test="detailId!=null and  detailId!=''">
+            and detail_id = #{ detailId}
+        </if>
+        
+        <if test="dictId!=null and  dictId!=''">
+            and dict_id = #{ dictId}
+        </if>
+        
+        <if test="label!=null and  label!=''">
+            and label = #{ label}
+        </if>
+        
+        <if test="value!=null and  value!=''">
+            and value = #{ value}
+        </if>
+        
+        <if test="dictSort!=null and  dictSort!=''">
+            and dict_sort = #{ dictSort}
+        </if>
+        
+        <if test="createBy!=null and  createBy!=''">
+            and create_by = #{ createBy}
+        </if>
+        
+        <if test="updateBy!=null and  updateBy!=''">
+            and update_by = #{ updateBy}
+        </if>
+        
+        <if test="createTime!=null and  createTime!=''">
+            and create_time = #{ createTime}
+        </if>
+        
+        <if test="updateTime!=null and  updateTime!=''">
+            and update_time = #{ updateTime}
+        </if>
+        
+    </sql>
+
+    <select id="findById" resultMap="doResultMap" parameterType="java.util.HashMap">
+        select
+            <include refid="AllColumn"/>
+        from
+            sys_dict_detail
+        where
+            detail_id = #{ detail_id}
+    </select>
+
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="java.util.HashMap">
+        select 
+            count(1)
+        from
+            sys_dict_detail
+        <where>
+            <include refid="where_condition"/>
+        </where>
+    </select>
+
+    <select id="queryListByMap" resultMap="voResultMap" parameterType="java.util.HashMap">
+        select
+            <include refid="AllColumn"/>
+        from
+            sys_dict_detail
+        <where>
+            <include refid="where_condition"/>
+        </where>
+        <if test="tPageJump != null and tRecInPage != null">
+            limit #{tPageJump}, #{tRecInPage}
+        </if>
+    </select>
+
+    <delete id="delete">
+        delete from sys_dict_detail where detail_id IN
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="detail_id" keyProperty="detail_id">
+        insert into sys_dict_detail ( 
+            detail_id,
+            dict_id,
+            label,
+            value,
+            dict_sort,
+            create_by,
+            update_by,
+            create_time,
+            update_time
+ ) values ( 
+            #{detailId},
+            #{dictId},
+            #{label},
+            #{value},
+            #{dictSort},
+            #{createBy},
+            #{updateBy},
+            #{createTime},
+            #{updateTime}
+ )
+    </insert>
+
+    <update id="updateByMap" parameterType="java.util.HashMap">
+        update sys_dict_detail
+        <set>
+            
+            <if test="dictId!=null and  dictId!=''">
+                dict_id = #{ dictId} ,
+            </if>
+            
+            <if test="label!=null and  label!=''">
+                label = #{ label} ,
+            </if>
+            
+            <if test="value!=null and  value!=''">
+                value = #{ value} ,
+            </if>
+            
+            <if test="dictSort!=null and  dictSort!=''">
+                dict_sort = #{ dictSort} ,
+            </if>
+            
+            <if test="createBy!=null and  createBy!=''">
+                create_by = #{ createBy} ,
+            </if>
+            
+            <if test="updateBy!=null and  updateBy!=''">
+                update_by = #{ updateBy} ,
+            </if>
+            
+            <if test="createTime!=null and  createTime!=''">
+                create_time = #{ createTime} ,
+            </if>
+            
+            <if test="updateTime!=null and  updateTime!=''">
+                update_time = #{ updateTime} ,
+            </if>
+            
+        </set>
+        where detail_id = #{ detail_id}
+    </update>
+
+</mapper>

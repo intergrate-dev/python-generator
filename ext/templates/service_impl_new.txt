@@ -1,0 +1,198 @@
+package {{ package }};
+
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.alibaba.fastjson.JSONObject;
+import {{ do_entity }};
+import {{ vo_entity }};
+import {{ service_entity }};
+import com.ccb.cloud.log.Logger;
+import com.ccb.cloud.log.LoggerFactory;
+import com.ccb.openframework.exception.CommonRuntimeException;
+import com.ccb.cloud.basic.common.consts.ErrorCodeEnum;
+import com.ccb.cloud.basic.common.entity.ComInfoEntity;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+@Component("portal.{{ class_name }}Service")
+public class {{ class_name }}ServiceImpl implements {{ class_name }}Service {
+    private Logger log = LoggerFactory.getLogger({{ class_name }}ServiceImpl.class);
+    
+    @Autowired
+    {{ class_name }}Service {{ small_class_name }}Service;
+    
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String create{{ class_name }}(String jsonString) throws Exception {
+        {{ class_name }}Do {{ small_class_name }}Do = null;
+        try{
+            JSONObject request = JSONObject.parseObject(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
+            {{ small_class_name }}Do = JSONObject.parseObject(body.getString("{{ small_class_name }}"), {{ class_name }}Do.class);
+            Map doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
+            {{ small_class_name }}Do.set{{ '{}{}'.format(idProp[0].upper(),idProp[1:]) }}(String.valueOf(System.currentTimeMillis()));
+            {{ small_class_name }}Do.insert{{ class_name }}();
+            
+            JSONObject jsonCommon = new JSONObject();
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("message", "创建成功");
+            return getObject(jsonCommon, jsonBody);
+        } catch(Exception e) {
+            log.info("create {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", {{ small_class_name }}Do.get{{ '{}{}'.format(idProp[0].upper(),idProp[1:]) }}(), e.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "创建{{ class_comment }}失败");
+        }
+    }
+    
+    @Override
+    public String getList(String jsonString) throws Exception {
+        try{
+            ComInfoEntity common = getReqTxnComm(jsonString);
+            JSONObject rtc = new JSONObject();
+            rtc.put("stsTraceId", common.gettStsTraceId());
+            rtc.put("tCurrTotalPage", common.gettPageJump());
+            rtc.put("tCurrTotalRec", common.gettRecInPage());
+            Map<String, Object> map = new HashMap();
+            Integer pageNo = common.gettPageJump() == null ? 1 : common.gettPageJump();
+            Integer pageSize = common.gettRecInPage() == null ? 10 : common.gettRecInPage();
+            map.put("tPageJump", (pageNo - 1) * pageSize);
+            map.put("tRecInPage", pageSize);
+            {{ class_name }}Do {{ small_class_name }}Do = new {{ class_name }}Do();
+            int total = {{ small_class_name }}Do.queryDataCount(map);
+            List<{{ class_name }}Vo> dataList = {{ small_class_name }}Do.queryDataList(map);
+
+            JSONObject request = JSONObject.parseObject(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            JSONObject jsonCommon = new JSONObject();
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
+            this.setPage(common, rtc, total);
+            return getObject(rtc, dataList);
+        } catch(Exception e) {
+            log.info("getList {{ small_class_name }} occure exception, error: {}", e.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "查询{{ class_comment }}列表失败");
+        }
+    }
+
+    @Override
+    public String getDetail(String jsonString) throws Exception {
+        String {{ idProp }} = null;
+        try{
+            ComInfoEntity common = getReqTxnComm(jsonString);
+            JSONObject request = JSONObject.parseObject(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            JSONObject jsonCommon = new JSONObject();
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
+            {{ idProp }} = body.getString("{{ idProp }}");
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("{{id}}", {{ idProp }});
+            {{ vo_entity }} detail = new {{ class_name }}Do().queryDetail(map);
+            return getObject(jsonCommon, detail);
+        } catch(Exception e) {
+            log.info("getDetail {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", {{ idProp }}, e.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "查询{{ class_comment }}详情失败");
+        }
+    }
+    
+    public {{ class_name}}Do get{{ class_name }}ById(String id) throws Exception {
+        return new {{ class_name }}Do().findById(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String update(String jsonString) throws Exception {
+        Map doMap = null;
+        try{
+            JSONObject request = JSONObject.parseObject(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
+            doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
+
+            new {{ class_name }}Do().update{{ class_name }}(doMap);
+            JSONObject jsonCommon = new JSONObject();
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("message", "修改成功");
+            return getObject(jsonCommon, jsonBody);
+        } catch(Exception e) {
+            log.info("update {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "修改{{ class_comment }}信息失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String publish(String jsonString) throws Exception {
+        Map doMap = null;
+        try{
+            JSONObject request = JSONObject.parseObject(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
+            doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
+            doMap.put("state", "1");
+            new {{ class_name }}Do().update{{ class_name }}(doMap);
+            JSONObject jsonCommon = new JSONObject();
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("message", "发布成功");
+            return getObject(jsonCommon, jsonBody);
+        } catch(Exception e) {
+            log.info("publish {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "发布{{ class_comment }}失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String revocate(String jsonString) throws Exception {
+        Map doMap = null;
+        try{
+            JSONObject request = JSONObject.parseObject(jsonString);
+            JSONObject body = JSONObject.parseObject(request.getString("txnBodyCom"));
+            ComInfoEntity common = getReqTxnComm(jsonString);
+            doMap = JSONObject.parseObject(body.getString("{{ small_class_name }}"), HashMap.class);
+            doMap.put("state", "0");
+            new {{ class_name }}Do().update{{ class_name }}(doMap);
+            JSONObject jsonCommon = new JSONObject();
+            jsonCommon.put("tStsTraceId", common.gettStsTraceId());
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("message", "注销成功");
+            return getObject(jsonCommon, jsonBody);
+        } catch(Exception e) {
+            log.info("revocate {{ small_class_name }} occure exception, {{ idProp }}: {}, error: {}", doMap.get("{{id}}"), e.getMessage());
+            throw new CommonRuntimeException(ErrorCodeEnum.COM_DYNAMIC_ERROR.getCode(), "注销{{ class_comment }}失败");
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String delete(String jsonString) throws Exception {
+        return null;
+    }
+
+    private ComInfoEntity getReqTxnComm(String jsonString) {
+        JSONObject request = JSONObject.parseObject(jsonString);
+        return JSONObject.parseObject(request.getString("txnCommCom"), ComInfoEntity.class);
+    }
+
+    private String getObject(Object common, Object body) {
+        JSONObject result = new JSONObject();
+        result.put("txnCommCom", common);
+        result.put("txnBodyCom", body);
+        return result.toString();
+    }
+
+    private void setPage(ComInfoEntity common, JSONObject rtc, Integer total) {
+        Integer pageSize = common.gettRecInPage();
+        rtc.put("totalPage", String.valueOf((total + pageSize - 1)/ pageSize));
+        rtc.put("totalRec", String.valueOf(total));
+    }
+
+}
+

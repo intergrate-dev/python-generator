@@ -1,0 +1,218 @@
+{
+    "info": {
+        "_postman_id": "4cb22676-1708-417f-b1ed-2aeff793ca6a",
+        "name": "Api-doc-test",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [{
+            "name": "sysDictDetail create",
+            "request": {
+                "method": "POST",
+                "header": [{
+                        "key": "tsStsTraceId",
+                        "value": "11056897909"
+                    },
+                    {
+                        "key": "C-Tenancy-Id",
+                        "value": "000000000000"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"txnCommCom\": {\"txnIttChnlId\": \"1\", \"txnIttChlCgyCode\": \"1\"}, \"txnBodyCom\": {\"sysDictDetail\": {\"detail_id\": \"401390\", \"dict_id\": \"jqte\", \"label\": \"gskn\", \"value\": \"ypevu\", \"dict_sort\": \"bfnslwmhp\", \"create_by\": \"horm\", \"update_by\": \"aixbluo\", \"create_time\": \"vwxgzyo\", \"update_time\": \"aorx\"}}}"
+                },
+                "url": {
+                    "raw": "http://localhost:8080/bdc/createSysDictDetail",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "8080",
+                    "path": [
+                        "bdc",
+                        "create"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sysDictDetail list",
+            "request": {
+                "method": "POST",
+                "header": [{
+                        "key": "tsStsTraceId",
+                        "value": "11056897909"
+                    },
+                    {
+                        "key": "C-Tenancy-Id",
+                        "value": "200000000000"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"txnCommCom\":{\"txnIttChnlId\":\"1\",\"txnIttChlCgyCode\":\"1\",\"tRecInPage\":\"10\",\"tPageJump\":\"1\"},\"txnBodyCom\":{}}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://localhost:8080/bdc/getListSysDictDetail",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "8080",
+                    "path": [
+                        "bdc",
+                        "getList"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sysDictDetail detail",
+            "request": {
+                "method": "POST",
+                "header": [{
+                        "key": "tsStsTraceId",
+                        "value": "11056897909"
+                    },
+                    {
+                        "key": "C-Tenancy-Id",
+                        "value": "000000000000"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"txnCommCom\":{\"txnIttChnlId\":\"1\",\"txnIttChlCgyCode\":\"1\"},\"txnBodyCom\":{\"detail_id\":\"123\"}}"
+                },
+                "url": {
+                    "raw": "http://localhost:8080/bdc/getDetailSysDictDetail",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "8080",
+                    "path": [
+                        "bdc",
+                        "getDetail"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sysDictDetail update",
+            "request": {
+                "method": "POST",
+                "header": [{
+                        "key": "tsStsTraceId",
+                        "value": "11056897909"
+                    },
+                    {
+                        "key": "C-Tenancy-Id",
+                        "value": "000000000000"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"txnCommCom\": {\"txnIttChnlId\": \"1\", \"txnIttChlCgyCode\": \"1\"}, \"txnBodyCom\": {\"sysDictDetail\": {\"detail_id\": \"401390\", \"dict_id\": \"jqte\", \"label\": \"gskn\", \"value\": \"ypevu\", \"dict_sort\": \"bfnslwmhp\", \"create_by\": \"horm\", \"update_by\": \"aixbluo\", \"create_time\": \"vwxgzyo\", \"update_time\": \"aorx\"}}}"
+                },
+                "url": {
+                    "raw": "http://localhost:8080/bdc/updateSysDictDetail",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "8080",
+                    "path": [
+                        "bdc",
+                        "update"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sysDictDetail publish",
+            "request": {
+                "method": "POST",
+                "header": [{
+                        "key": "tsStsTraceId",
+                        "value": "11056897909"
+                    },
+                    {
+                        "key": "C-Tenancy-Id",
+                        "value": "000000000000"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"txnCommCom\":{\"txnIttChnlId\":\"1\",\"txnIttChlCgyCode\":\"1\"},\"txnBodyCom\":{\"detail_id\":\"123\"}}"
+                },
+                "url": {
+                    "raw": "http://localhost:8080/bdc/publishSysDictDetail",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "8080",
+                    "path": [
+                        "bdc",
+                        "publish"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "sysDictDetail revocateSysDictDetail",
+            "request": {
+                "method": "POST",
+                "header": [{
+                        "key": "tsStsTraceId",
+                        "value": "11056897909"
+                    },
+                    {
+                        "key": "C-Tenancy-Id",
+                        "value": "000000000000"
+                    },
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"txnCommCom\":{\"txnIttChnlId\":\"1\",\"txnIttChlCgyCode\":\"1\"},\"txnBodyCom\":{\"detail_id\":\"123\"}}"
+                },
+                "url": {
+                    "raw": "http://localhost:8080/bdc/revocate",
+                    "protocol": "http",
+                    "host": ["localhost"],
+                    "port": "8080",
+                    "path": [
+                        "bdc",
+                        "revocate"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ],
+    "protocolProfileBehavior": {}
+}
